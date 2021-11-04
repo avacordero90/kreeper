@@ -42,7 +42,7 @@ optional arguments:
 ```
 
 
-## examples:
+## examples
 ```
 $ ./kreeper.py                            # run with defaults
 $ ./kreeper.py -h                         # get help
