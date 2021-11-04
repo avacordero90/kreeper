@@ -49,5 +49,5 @@ $ ./kreeper.py -h                         # get help
 $ ./kreeper.py --verbose                  # run in verbose mode
 $ ./kreeper.py --coins ETH ETH3L          # gets all ETH and ETH3L quotes
 $ ./kreeper.py --coins ETH --quotes BTC   # gets ETH-BTC
-$ ./kreeper.py --coins ETH ETH3L -quotes USDT BTC --interval 1hour --lines 10 # sample advanced usage
+$ ./kreeper.py --coins ETH ETH3L -quotes USDT BTC --interval 1hour --lines 10 # advanced usage
 ```
