@@ -20,15 +20,15 @@ if [[ $answer == 'y'* ]]; then
 
     echo "enter kucoin API key:"
     read KUCOIN_KEY
-    export KUCOIN_KEY
+    export KUCOIN_KEY=$KUCOIN_KEY
 
     echo "enter kucoin API secret: "
     read KUCOIN_SECRET
-    export KUCOIN_SECRET
+    export KUCOIN_SECRET=$KUCOIN_SECRET
 
     echo "enter kucoin API passphrase: "
     read KUCOIN_PASSPHRASE
-    export KUCOIN_PASSPHRASE
+    export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
 
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'python3 ./kreeper.py'"

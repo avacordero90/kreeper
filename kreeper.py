@@ -40,7 +40,7 @@ from src.market import analyze, compile, monitor
 # description: parses command line arguments for use by the program.
 def _parse_args():
     # parse arguments
-    parser = argparse.ArgumentParser(description='executes crypto trades based on desired investment and risk level.')
+    parser = argparse.ArgumentParser(description='a kucoin service that buys and sells crypto based on technical analysis indicators')
     # parser.add_argument('-B', '--budget', dest='budget', type=int,
     #                     help='budget to trade with')
     parser.add_argument('-c', '--coins', dest='coins', type=str, nargs='+',
