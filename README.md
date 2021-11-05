@@ -4,14 +4,14 @@ a kucoin service that buys and sells crypto based on technical analysis indicato
 ## installation
 run the following command to install the kreeper service (requires root access).
 ```
-$ cd ~ && git clone https://github.com/avacordero90/kreeper.git && ~/kreeper/install/install.sh 
+cd ~ && git clone git@github.com:avacordero90/kreeper.git && ~/kreeper/install/install.sh 
 ```
 downloads the kreeper source code, installs dependencies, creates and inits a virtual environment, and runs config.sh (see next section)
 
 ## configuration
 run the following command to start a python virtual environment and configure the kreeper service:
 ```
-$ cd ~/kreeper/ && pipenv shell "source ~/kreeper/install/config.sh"
+cd ~/kreeper/ && pipenv shell "source ~/kreeper/install/config.sh"
 ```
 * this configurator is for internal use only.
 * it will connect to an API key on a given kucoin account, therefore binding it.
@@ -44,10 +44,10 @@ optional arguments:
 
 ## examples
 ```
-$ ./kreeper.py                            # run with defaults
-$ ./kreeper.py -h                         # get help
-$ ./kreeper.py --verbose                  # run in verbose mode
-$ ./kreeper.py --coins ETH ETH3L          # gets all ETH and ETH3L quotes
-$ ./kreeper.py --coins ETH --quotes BTC   # gets ETH-BTC
-$ ./kreeper.py --coins ETH ETH3L -quotes USDT BTC --interval 1hour --lines 10 # advanced usage
+./kreeper.py                            # run with defaults
+./kreeper.py -h                         # get help
+./kreeper.py --verbose                  # run in verbose mode
+./kreeper.py --coins ETH ETH3L          # gets all ETH and ETH3L quotes
+./kreeper.py --coins ETH --quotes BTC   # gets ETH-BTC
+./kreeper.py --coins ETH ETH3L -quotes USDT BTC --interval 1hour --lines 10 # advanced usage
 ```
