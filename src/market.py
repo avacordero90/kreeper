@@ -16,6 +16,8 @@ from kucoin.exceptions import KucoinAPIException
 
 from datetime import datetime
 
+# local imports
+from src.orders import place_limit_order
 
 # function: analyze
 # input: client object, pair name, pair table dataframe object, balances dict
@@ -80,11 +82,8 @@ def analyze(client, pair, table, balances):
                 time.sleep(1) # rate limit pause
 
                 # place a limit sell order
-                try:
-                    order = client.create_limit_order(pair, 'sell', str(round(quantity, 4)), str(price))
-                    print("order successful:", order)
-                except Exception as e:
-                    print("failed to make transaction: ", str(e))
+                # place_limit_order(pair, 'sell', str(round(quantity, 4)), str(price))
+
     elif (current_rsi > 50 and current_histogram > 0) and quote in balances:
     # if rsi is over 50, histogram has crossed, and the current balance of the asset is lower than ...
         quote_balance = balances[quote] or 0
@@ -127,7 +126,7 @@ def analyze(client, pair, table, balances):
                 #     print("failed to make transaction: ", str(e))
     # else:
     #     print('hodling', pair, ' ...')
-    
+    print(pair, action, str(round(quantity, 5)), str(price))
     return (pair, action, str(round(quantity, 5)), str(price))
 
 # function: compile

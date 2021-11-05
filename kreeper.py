@@ -25,6 +25,7 @@
 #   https://github.com/Kucoin/kucoin-python-sdk
 
 import argparse
+import math
 import os
 import sys
 import time
@@ -32,7 +33,7 @@ import time
 # local imports
 from src.client import connect
 from src.market import analyze, compile, monitor
-
+from src.orders import place_limit_order
 
 # function: _parse_args
 # input: none
@@ -40,7 +41,7 @@ from src.market import analyze, compile, monitor
 # description: parses command line arguments for use by the program.
 def _parse_args():
     # parse arguments
-    parser = argparse.ArgumentParser(description='executes crypto trades based on desired investment and risk level.')
+    parser = argparse.ArgumentParser(description='a kucoin service that buys and sells crypto based on technical analysis indicators')
     # parser.add_argument('-B', '--budget', dest='budget', type=int,
     #                     help='budget to trade with')
     parser.add_argument('-c', '--coins', dest='coins', type=str, nargs='+',
@@ -116,7 +117,8 @@ if __name__ == "__main__":
 
         print("done.\n")
 
-        best = ('', '', '0.00', '0.00')
+        best = ('', 'buy', '0.00', '0.00')
+        worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
 
         # for each table
         for pair in markets.keys():
@@ -131,15 +133,14 @@ if __name__ == "__main__":
             if ('buy' in data[1]):
                 if (float(data[2]) > float(best[2])):
                     best = data
+            elif ('sell' in data[1]):
+                if (float(data[2]) < float(worst[2])):
+                    worst = data
         
-        if 'buy' in best[1]:
-            # place a limit buy order
-            try:
-                print('>>>\tbuying', best[2], pair, "\t<<<")
-                order = client['trade'].create_limit_order(*best)
-                print("order successful:", order)
-            except Exception as e:
-                print("failed to make transaction: ", str(e))
+        if best[0] != '':
+            place_limit_order(client['trade'], *best)
+        if worst[0] != '':
+            place_limit_order(client['trade'], *worst)
         
         print("done.\n")
 

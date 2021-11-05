@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiohttp = "==3.7.4.post0"
 async-timeout = "==3.0.1"
 attrs = "==21.2.0"
 bta-lib = "==1.0.0"
