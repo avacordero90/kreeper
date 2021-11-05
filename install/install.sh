@@ -15,7 +15,7 @@ if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install pip3 python3
+        sudo apt install pip pip3 python2 python3
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
             cd ~/kreeper
