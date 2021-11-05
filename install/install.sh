@@ -17,7 +17,7 @@ if [[ $answer == 'y'* ]]; then
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         # sudo apt install python python3 -y
         sudo apt install software-properties-common -y
-        sudo add-apt-repository ppa:deadsnakes/ppa
+        sudo add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt update -y
         sudo apt install python3.9 -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
