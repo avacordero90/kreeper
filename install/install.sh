@@ -38,9 +38,7 @@ if [[ $answer == 'y'* ]]; then
         exit
     fi
 
-    if [[ ! $(pip --version) ]]; then
-        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
-    fi
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
 
     sudo -H pip install -U pipenv
     cd ~/kreeper/install/
