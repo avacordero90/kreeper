@@ -15,7 +15,7 @@ if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install python python3
+        sudo apt install python python3 -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
             cd ~/kreeper
@@ -38,7 +38,7 @@ if [[ $answer == 'y'* ]]; then
         exit
     fi
 
-    if [[ ! $(pip3 --version) ]]; then
+    if [[ ! $(pip --version) ]]; then
         curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
     fi
 
