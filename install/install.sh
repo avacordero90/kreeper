@@ -14,31 +14,14 @@ read answer
 if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install software-properties-common -y
-        sudo add-apt-repository -y ppa:deadsnakes/ppa
-        sudo apt update -y
-        sudo apt install python3.8 python3.8-distutils git -y
-    elif [[ "$OSTYPE" == "darwin"* ]]; then 
-        if [[ ! $(python3 --version) ]]; then
-            cd ~/kreeper
-            curl https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz > tar -zxvf Python-3.9.6.tgz
-            cd Python-3.9.6
-            sudo make clean
-            sudo /configure --prefix=${HOME}/localpython --enable-optimizations
-            sudo make
-            sudo make install
-        fi
-    else
-        echo "for real bitch, windows??? ugh."
-        sleep 1
-        echo "incompatible."
-        sleep 1
-        echo "fail."
-        sleep 1
-        echo "bye."
-        sleep 1
-        exit
+    if [[ ! $(python3 --version) ]]; then
+        cd ~/kreeper
+        curl https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz > tar -zxvf Python-3.9.6.tgz
+        cd Python-3.9.6
+        sudo make clean
+        sudo /configure --prefix=${HOME}/localpython --enable-optimizations
+        sudo make
+        sudo make install
     fi
 
     curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py
