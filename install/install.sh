@@ -25,7 +25,8 @@ if [[ $answer == 'y'* ]]; then
     fi
 
     curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    sudo python3.8 get-pip.py
+    pip --python /usr/bin/python3
+    sudo python get-pip.py
     rm -f ~/kreeper/get-pip.py
 
     sudo -H pip install -U pipenv
