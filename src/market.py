@@ -12,8 +12,6 @@ import pandas_ta
 import sys
 import time
 
-# from kucoin.exceptions import KucoinAPIException
-
 from datetime import datetime
 
 # local imports
