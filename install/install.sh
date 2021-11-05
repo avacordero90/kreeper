@@ -19,7 +19,7 @@ if [[ $answer == 'y'* ]]; then
         sudo apt install software-properties-common -y
         sudo add-apt-repository -y ppa:deadsnakes/ppa
         sudo apt update -y
-        sudo apt install python3.9 python3.9-distutils -y
+        sudo apt install python3.8 python3.8-distutils -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
             cd ~/kreeper
@@ -42,7 +42,7 @@ if [[ $answer == 'y'* ]]; then
         exit
     fi
 
-    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py | sudo python3.9
+    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py | sudo python3.8
 
     sudo -H pip3 install -U pipenv
     cd ~/kreeper/
