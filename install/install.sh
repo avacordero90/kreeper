@@ -50,7 +50,7 @@ if [[ $answer == 'y'* ]]; then
     pipenv clean
     pipenv shell source ./install/config.sh
     
-    if [[ pipenv --version ]]; then
+    if [[ $(pipenv --version) ]]; then
         echo -e "installation complete!\n"
     else
         echo -e "installation failed!\n"
