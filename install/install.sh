@@ -15,7 +15,7 @@ if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install pip pip3 python2 python3
+        sudo apt install python python3
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
             cd ~/kreeper
@@ -25,9 +25,6 @@ if [[ $answer == 'y'* ]]; then
             sudo /configure --prefix=${HOME}/localpython --enable-optimizations
             sudo make
             sudo make install
-        fi
-        if [[ ! $(pip3 --version) ]]; then
-            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
         fi
     else
         echo "for real bitch, windows??? ugh."
@@ -39,6 +36,10 @@ if [[ $answer == 'y'* ]]; then
         echo "bye."
         sleep 1
         exit
+    fi
+
+    if [[ ! $(pip3 --version) ]]; then
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
     fi
 
     sudo -H pip install -U pipenv
