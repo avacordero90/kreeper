@@ -15,10 +15,10 @@ if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt get pip3 python3
+        sudo apt install pip3 python3
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
-            cd ~/kreeper/
+            cd ~/kreeper
             curl https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz > tar -zxvf Python-3.9.6.tgz
             cd Python-3.9.6
             sudo make clean
