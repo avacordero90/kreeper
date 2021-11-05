@@ -6,22 +6,22 @@ sleep 1
 
 echo "========================================================"
 echo "this installer is for internal use only."
+echo "requires git."
 echo "========================================================"
 
 echo "continue? Y/n"
 read answer
 
-if [[ $answer == 'y'* ]]; then
-    mkdir ~/kreeper
+if [[ $answer == 'y'* || git --version ]]; then
+    if [[ ! ls ~/kreeper ]]; then
 
-    if [[ ! $(python3 --version) ]]; then
-        cd ~/kreeper
-        curl -X GET "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
-        sudo rm -rf python.tgz
-        cd Python-3.9.6
-        sudo make clean && sudo /configure --prefix=${HOME}/localpython --enable-optimizations
-        sudo make && sudo make install
     fi
+    cd ~/kreeper
+    curl -X GET "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
+    sudo rm -rf python.tgz
+    cd ~/kreeper/Python-3.9.6
+    sudo make clean && sudo /configure --prefix=${HOME}/localpython --enable-optimizations
+    sudo make && sudo make install
 
     curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     pip --python /usr/bin/python3
