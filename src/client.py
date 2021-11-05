@@ -12,12 +12,6 @@ import sys
 
 from kucoin.client import User, Trade, Market
 
-# first attempt -- python-binance
-# from binance.client import Client
-
-# python-kucoin
-# from kucoin.client import Client
-
 
 # function: _connect_api
 # input: none

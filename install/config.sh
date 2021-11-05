@@ -19,15 +19,15 @@ if [[ $answer == 'y'* ]]; then
     yes | pip3 install -r requirements.txt
 
     echo "enter kucoin API key:"
-    read KUCOIN_KEY
+    read -s KUCOIN_KEY
     export KUCOIN_KEY=$KUCOIN_KEY
 
     echo "enter kucoin API secret: "
-    read KUCOIN_SECRET
+    read -s KUCOIN_SECRET
     export KUCOIN_SECRET=$KUCOIN_SECRET
 
     echo "enter kucoin API passphrase: "
-    read KUCOIN_PASSPHRASE
+    read -s KUCOIN_PASSPHRASE
     export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
 
     echo -e "configuration complete!\n"

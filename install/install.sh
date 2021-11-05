@@ -15,7 +15,11 @@ if [[ $answer == 'y'* ]]; then
     mkdir ~/kreeper
 
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        sudo apt install python python3
+        # sudo apt install python python3 -y
+        sudo apt install software-properties-common -y
+        sudo add-apt-repository -y ppa:deadsnakes/ppa
+        sudo apt update -y
+        sudo apt install python3.8 python3.8-distutils -y
     elif [[ "$OSTYPE" == "darwin"* ]]; then 
         if [[ ! $(python3 --version) ]]; then
             cd ~/kreeper
@@ -38,17 +42,20 @@ if [[ $answer == 'y'* ]]; then
         exit
     fi
 
-    if [[ ! $(pip3 --version) ]]; then
-        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | python3
-    fi
+    curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py | sudo python3.8
 
-    sudo -H pip install -U pipenv
-    cd ~/kreeper/install/
+    sudo -H pip3 install -U pipenv
+    cd ~/kreeper/
 
     pipenv clean
     pipenv shell source ./install/config.sh
     
-    echo -e "installation complete!\n"
+    if [[ $(pipenv --version) ]]; then
+        echo -e "installation complete!\n"
+    else
+        echo -e "installation failed!\n"
+    fi
+
 else
     echo -e "installation aborted!\n"
 fi
