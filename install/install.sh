@@ -16,12 +16,11 @@ if [[ $answer == 'y'* ]]; then
 
     if [[ ! $(python3 --version) ]]; then
         cd ~/kreeper
-        curl https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz > tar -zxvf Python-3.9.6.tgz
+        curl -X GET "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
+        sudo rm -rf python.tgz
         cd Python-3.9.6
-        sudo make clean
-        sudo /configure --prefix=${HOME}/localpython --enable-optimizations
-        sudo make
-        sudo make install
+        sudo make clean && sudo /configure --prefix=${HOME}/localpython --enable-optimizations
+        sudo make && sudo make install
     fi
 
     curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py -o get-pip.py
