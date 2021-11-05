@@ -6,7 +6,7 @@ run the following command to install the kreeper service (requires root access).
 ```
 $ cd ~ && git clone https://github.com/avacordero90/kreeper.git && ~/kreeper/install/install.sh 
 ```
-downloads the kreeper source code, installs dependencies, creates a virtual environment, and runs config.sh (see next section)
+downloads the kreeper source code, installs dependencies, creates and inits a virtual environment, and runs config.sh (see next section)
 
 ## configuration
 run the following command to start a python virtual environment and configure the kreeper service:
