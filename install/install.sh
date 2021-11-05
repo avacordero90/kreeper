@@ -12,8 +12,8 @@ echo "========================================================"
 echo "continue? Y/n"
 read answer
 
-if [[ $answer == 'y'* || git --version ]]; then
-    if [[ ! ls ~/kreeper ]]; then
+if [[ $answer == 'y'* ]]; then
+    if [[ ! test ~/kreeper ]]; then
 
     fi
     cd ~/kreeper
