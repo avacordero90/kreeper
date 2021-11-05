@@ -2,7 +2,6 @@
 
 echo "initializing kreeper server installation ..."
 
-
 sleep 1
 
 echo "========================================================"
@@ -30,7 +29,7 @@ if [[ $answer == 'y'* ]]; then
     rm -f ~/kreeper/get-pip.py
 
     sudo -H pip install -U pipenv
-    pipenv --python /bin/python3.8
+    # pipenv --python /bin/python3.8
     cd ~/kreeper/
 
     pipenv clean
