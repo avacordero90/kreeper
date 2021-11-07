@@ -11,7 +11,7 @@ downloads the kreeper source code, installs dependencies, creates and inits a vi
 ## configuration
 run the following command to start a python virtual environment and configure the kreeper service (requires root access and pip):
 ```
-curl -X GET https://raw.githubusercontent.com/avacordero90/kreeper/main/install/config.sh | sudo pip source
+curl -X GET https://raw.githubusercontent.com/avacordero90/kreeper/main/install/config.sh | sudo pipenv shell source
 ```
 * this configurator is for internal use only.
 * it will connect to an API key on a given kucoin account, therefore binding it.
