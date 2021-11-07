@@ -33,10 +33,12 @@ if [[ $answer == 'y'* ]]; then
     cd ~/kreeper/
 
     pipenv clean
-    pipenv shell source ./install/config.sh
-    
+    # pipenv shell source ./install/config.sh
+
     if [[ $(pipenv --version) ]]; then
         echo -e "installation complete!\n"
+
+        ~/kreeper/setup/config.sh
     else
         echo -e "installation failed!\n"
     fi
