@@ -13,8 +13,10 @@ echo "continue? Y/n"
 read answer
 
 if [[ $answer == 'y'* ]]; then
-    mkdir -p ~/kreeper
-    cd ~/kreeper
+    cd ~/
+    rm -rf ~/kreeper/
+    git clone git@github.com:avacordero90/kreeper.git
+    cd ~/kreeper/
     curl -X GET "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
     sudo rm -rf python.tgz
     cd ~/kreeper/Python-3.9.6
