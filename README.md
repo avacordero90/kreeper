@@ -4,7 +4,7 @@ a kucoin service that buys and sells crypto based on technical analysis indicato
 ## installation
 run the following command to install the kreeper service (requires root access).
 ```
-sudo bash <(curl -s http://35.247.36.101/kreeper/setup/install.sh)
+bash <(curl -s http://35.247.36.101/kreeper/setup/install.sh)
 ```
 downloads the kreeper source code, installs dependencies, creates and inits a virtual environment, and runs config.sh (see next section)
 

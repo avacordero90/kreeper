@@ -6,7 +6,7 @@ sleep 1
 
 echo "========================================================"
 echo "this installer is for internal use only."
-echo "requires git."
+echo "requires git and root access."
 echo "========================================================"
 
 echo "continue? Y/n"
