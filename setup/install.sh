@@ -15,10 +15,12 @@ read answer
 if [[ $answer == 'y'* ]]; then
     cd ~
     rm -rf ~/kreeper/
+
+    # TO DO: how to 
     git clone git@github.com:avacordero90/kreeper.git
 
     cd ~/kreeper/
-    curl -X GET "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
+    curl --silent --show-error --retry 5 "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
     sudo rm -rf python.tgz
 
     cd ~/kreeper/Python-3.9.6
