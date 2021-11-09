@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 # kreeper -- orders
-#   v1.0.4
+#   v1.0.6
 #   by Luna Cordero
 #   written 11/4/2021
-#   updated 11/4/2021
+#   updated 11/8/2021
 
 # function: place_limit_order
 # input: client, pair, quantity, price

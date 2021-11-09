@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 # kreeper -- main
-#   v1.0.4
+#   v1.0.6
 #   by Luna Cordero
 #   written 6/20/2021
-#   updated 11/4/2021
+#   updated 11/8/2021
 
 # sources:
 #   https://github.com/binance-us/binance-official-api-docs
@@ -31,9 +31,12 @@ import sys
 import time
 
 # local imports
-from src.client import connect
-from src.market import analyze, compile, monitor
-from src.orders import place_limit_order
+from source.client import connect
+from source.market import analyze, compile, monitor
+from source.orders import place_limit_order
+
+# version -- update often!
+VERSION = "1.0.6"
 
 # function: _parse_args
 # input: none
@@ -58,9 +61,15 @@ def _parse_args():
                         help='limit of datapoints to return')
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
                         help='displays all logging and market data')
+    parser.add_argument('--version', dest='version', action='store_true',
+                        help='displays the current kreeper version')
+
 
     args = parser.parse_args()
     # print(args.coins)
+
+    if args.version:
+        sys.exit(VERSION)
 
     # if args.coins == None:
     #     sys.exit("no coins specified. please see " + os.path.basename(__file__) + " --help for more details.")

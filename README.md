@@ -1,4 +1,4 @@
-# [kreeper](https://github.com/avacordero90/kreeper) - by [Luna Cordero](https://lunacordero.com)
+# [kreeper](https://github.com/avacordero90/kreeper) - by [Luna Cordero](https://lunacordero.com) - v1.0.6
 a kucoin service that buys and sells crypto based on technical analysis indicators
 
 ## installation

@@ -22,31 +22,53 @@ if [[ $answer == 'y'* ]]; then
     if [[ ! $1 ]]; then
         cd ~/kreeper/
 
-        curl -s "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" -o python.tgz && tar -zxvf python.tgz
+        curl -s "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" -o ~/kreeper/python.tgz && tar -zxvf ~/kreeper/python.tgz
 
         if [[ ! $1 ]]; then
-            sudo rm -rf python.tgz
+            sudo rm -rfp python.tgz
+            sudo rm -rfp /usr/bin/python3.9
 
-            cd ~/kreeper/Python-3.9.6
+            sudo mv ~/kreeper/Python-3.9.6 /usr/bin/python3.9 2>/dev/null
+            cd /usr/bin/python3.9
+
             sudo make clean
 
             sudo ./configure --prefix=${HOME}/localpython --enable-optimizations
             
             if [[ ! $1 ]]; then
+                sudo make && sudo make install && \
+                curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+                cat ~/.bashrc | grep "usr/bin/python/python3.9"
+
+                if [[ "$(cat ~/.bashrc | grep "usr/bin/python/python3.9")" ]]; then
+                    echo -e "# this is to install python3.9\nexport PATH=\$PATH:usr/bin/python/python3.9" >> ~/.bashrc && source ~/.bashrc
+                fi
                 
-                if [[ $(sudo make && sudo make install && \
-                curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
-                sudo python get-pip.py) ]]; then
+                source ~/.bashrc
+
+                ###################################
+                # TO DO - continue coding here!!! #
+                ###################################
+
+                sudo python3.9 get-pip.py
+                
+                if [[ $1 ]]; then
                 
                     rm -f ~/kreeper/get-pip.py
 
-                    if [[ $(sudo -H pip install -U pipenv) ]]; then
+                    sudo -H pip install -U pipenv
+
+                    if [[ $1 ]]; then
                         # pipenv --python /bin/python3.9
-
                         cd ~/kreeper/
-                        if [[ $(pipenv clean && pipenv shell source ./install/config.sh) ]]; then
 
-                            if [[ $(pipenv --version) ]]; then
+                        pipenv clean && pipenv shell source ./install/config.sh
+
+                        if [[ $1 ]]; then
+                            pipenv --version && python3.9 ~/kreeper.py --help
+
+                            if [[ $1]]; then
                                 echo -e "installation complete!\n"
                             else
                             # TO DO: this goes somewhere else
