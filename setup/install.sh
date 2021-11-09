@@ -29,6 +29,7 @@ if [[ $answer == 'y'* ]]; then
             sudo rm -rfp /usr/bin/python3.9
 
             sudo mv ~/kreeper/Python-3.9.6 /usr/bin/python3.9 2>/dev/null
+            
             cd /usr/bin/python3.9
 
             sudo make clean
@@ -36,7 +37,10 @@ if [[ $answer == 'y'* ]]; then
             sudo ./configure --prefix=${HOME}/localpython --enable-optimizations
             
             if [[ ! $1 ]]; then
-                sudo make && sudo make install && \
+                sudo make && sudo make install
+
+                cd ~/kreeper
+
                 curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
                 cat ~/.bashrc | grep "usr/bin/python/python3.9"
@@ -57,7 +61,7 @@ if [[ $answer == 'y'* ]]; then
                 
                     rm -f ~/kreeper/get-pip.py
 
-                    sudo -H pip install -U pipenv
+                    pip install -U pipenv
 
                     if [[ $1 ]]; then
                         # pipenv --python /bin/python3.9
