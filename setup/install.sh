@@ -6,47 +6,49 @@ sleep 1
 
 echo "========================================================"
 echo "this installer is for internal use only."
-echo "requires git."
+echo "requires debian-based linux and root access."
+echo "recommended to install to a container."
 echo "========================================================"
 
 echo "continue? Y/n"
 read answer
 
-echo $answer
-
 if [[ $answer == 'y'* ]]; then
     cd ~
     rm -rf ~/kreeper/
 
-    # TO DO: how to 
+    sudo apt install git -y
+
     git clone git@github.com:avacordero90/kreeper.git
 
-    cd ~/kreeper/
-    curl -s "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" --output python.tgz && tar -zxvf python.tgz
-    sudo rm -rf python.tgz
+    # test that we have git/perms
+    if [[ ! $1 ]]; then
+        echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
-    cd ~/kreeper/Python-3.9.6
-    sudo make clean && sudo /configure --prefix=${HOME}/localpython --enable-optimizations
-    sudo make && sudo make install
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-    curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    pip --python /usr/bin/python3
+        brew install python@3.10
 
-    sudo python get-pip.py
-    rm -f ~/kreeper/get-pip.py
+        echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.10/bin:$PATH"' >> ~/.profile
+        source ~/.profile
 
-    sudo -H pip install -U pipenv
-    # pipenv --python /bin/python3.8
+        pip3 install pipenv
 
-    cd ~/kreeper/
-    pipenv clean
-    
-    pipenv shell source ./install/config.sh
+        pipenv clean && pipenv shell source ./install/config.sh
 
-    if [[ $(pipenv --version) ]]; then
-        echo -e "installation complete!\n"
+        if [[ $1 ]]; then
+            pipenv --version && python3.10 ~/kreeper.py --help
 
-        ~/kreeper/setup/config.sh
+            if [[ $1 ]]; then
+                echo -e "installation complete!\n"
+            else
+                echo -e "installation failed: pipenv or python not found.\n"
+            fi
+        else
+            echo -e "installation failed!\n"
+        fi
+
     else
         echo -e "installation failed!\n"
     fi
