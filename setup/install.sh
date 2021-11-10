@@ -72,7 +72,7 @@ if [[ $answer == 'y'* ]]; then
                         if [[ $1 ]]; then
                             pipenv --version && python3.9 ~/kreeper.py --help
 
-                            if [[ $1]]; then
+                            if [[ $1 ]]; then
                                 echo -e "installation complete!\n"
                             else
                             # TO DO: this goes somewhere else
