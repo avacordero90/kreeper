@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# THIS ENTIRE SCRIPT MAY VERY LIKELY BE REPLACED WITH A BREW SCRIPT IN THE FUTURE!
-
 echo "initializing kreeper server installation ..."
 
 sleep 1
 
 echo "========================================================"
 echo "this installer is for internal use only."
-echo "requires git and root access."
+echo "requires debian-based linux and root access."
+echo "recommended to install to a container."
 echo "========================================================"
 
 echo "continue? Y/n"
@@ -18,80 +17,38 @@ if [[ $answer == 'y'* ]]; then
     cd ~
     rm -rf ~/kreeper/
 
+    sudo apt install git -y
+
     git clone git@github.com:avacordero90/kreeper.git
 
     # test that we have git/perms
     if [[ ! $1 ]]; then
-        cd ~/kreeper/
+        echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
-        curl -s "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" -o ~/kreeper/python.tgz && tar -zxvf ~/kreeper/python.tgz
+        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-        if [[ ! $1 ]]; then
-            sudo rm -rf python.tgz
-            sudo rm -rf /usr/bin/python3.9
+        brew install python@3.10
 
-            sudo mv ~/kreeper/Python-3.9.6 ~/python3.9 2>/dev/null
-            
-            cd ~/python3.9
+        echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.10/bin:$PATH"' >> ~/.profile
+        source ~/.profile
 
-            sudo make clean
+        pip3 install pipenv
 
-            sudo ./configure --prefix=${HOME} --enable-optimizations
-            
-            if [[ ! $1 ]]; then
-                sudo make && sudo make install
+        pipenv clean && pipenv shell source ./install/config.sh
 
-                sudo ln -sf ~/python3.9/python /usr/bin/python
-                sudo ln -sf ~/python3.9/python /usr/bin/python3
-                sudo ln -sf ~/python3.9/python /usr/bin/python3.9
+        if [[ $1 ]]; then
+            pipenv --version && python3.10 ~/kreeper.py --help
 
-                cd ~/kreeper
-
-                curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-
-                python3.9 get-pip.py
-
-                sudo ln -s ~/bin/pip3 /usr/bin/pip
-                
-                # sudo ln -sf ~/python3.9/bin/pip /usr/bin/pip
-                # sudo ln -sf ~/python3.9/bin/pip3 /usr/bin/pip3
-                # sudo ln -sf ~/python3.9/bin/pip3.9 /usr/bin/pip3.9
-
-                if [[ $1 ]]; then
-                
-                    rm -f ~/kreeper/get-pip.py
-
-                    pip install -U pipenv
-
-                    if [[ $1 ]]; then
-                        # pipenv --python /bin/python3.9
-                        cd ~/kreeper/
-
-                        pipenv clean && pipenv shell source ./install/config.sh
-
-                        if [[ $1 ]]; then
-                            pipenv --version && python3.9 ~/kreeper.py --help
-
-                            if [[ $1 ]]; then
-                                echo -e "installation complete!\n"
-                            else
-                                echo -e "installation failed: pipenv or python not found.\n"
-                            fi
-                        else
-                            echo -e "installation failed!\n"
-                        fi
-                    else
-                        echo -e "installation failed!\n"
-                    fi
-                else
-                    echo -e "installation failed!\n"
-                fi
+            if [[ $1 ]]; then
+                echo -e "installation complete!\n"
             else
-                echo -e "installation failed!\n"
+                echo -e "installation failed: pipenv or python not found.\n"
             fi
         else
             echo -e "installation failed!\n"
         fi
+
     else
         echo -e "installation failed!\n"
     fi
