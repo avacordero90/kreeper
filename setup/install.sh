@@ -28,9 +28,9 @@ if [[ $answer == 'y'* ]]; then
             sudo rm -rfp python.tgz
             sudo rm -rfp /usr/bin/python3.9
 
-            sudo mv ~/kreeper/Python-3.9.6 /usr/bin/python3.9 2>/dev/null
+            sudo mv ~/kreeper/Python-3.9.6 ~/python3.9 2>/dev/null
             
-            cd /usr/bin/python3.9
+            cd ~/python3.9
 
             sudo make clean
 
@@ -43,19 +43,13 @@ if [[ $answer == 'y'* ]]; then
 
                 curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
-                cat ~/.bashrc | grep "usr/bin/python/python3.9"
-
-                if [[ "$(cat ~/.bashrc | grep "usr/bin/python/python3.9")" ]]; then
-                    echo -e "# this is to install python3.9\nexport PATH=\$PATH:usr/bin/python/python3.9" >> ~/.bashrc && source ~/.bashrc
-                fi
+                sudo cp -l ~/python3.9/python /usr/bin/python3.9
                 
-                source ~/.bashrc
-
                 ###################################
                 # TO DO - continue coding here!!! #
                 ###################################
 
-                sudo python3.9 get-pip.py
+                sudo python39 get-pip.py
                 
                 if [[ $1 ]]; then
                 
@@ -76,7 +70,7 @@ if [[ $answer == 'y'* ]]; then
                                 echo -e "installation complete!\n"
                             else
                             # TO DO: this goes somewhere else
-                                echo -e "installation failed: pipenv not found.\n"
+                                echo -e "installation failed: pipenv or python not found.\n"
                             fi
                         else
                             echo -e "installation failed!\n"
