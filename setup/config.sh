@@ -32,7 +32,7 @@ if [[ $answer == 'y'* ]]; then
     export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
 
     echo -e "configuration complete!\n"
-    echo "you can now run the kreeper service by typing 'python3 ./kreeper.py'" ) | pipenv shell source
+    echo "you can now run the kreeper service by typing 'python3 ./kreeper.py'" 
 else
     echo -e "configuration aborted!\n"
 fi

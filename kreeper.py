@@ -28,11 +28,12 @@ import argparse
 import math
 import os
 import sys
+import requests
 import time
 
 # local imports
 from source.client import connect
-from source.market import analyze, compile, monitor
+from source.markets import analyze, compile, monitor
 from source.orders import place_limit_order
 
 # version -- update often!
@@ -136,7 +137,10 @@ if __name__ == "__main__":
                 monitor(pair, markets[pair], args.lines or 10, args.verbose or False) # default to 10 lines of data
             
             # analyze each table to determine action
-            data = analyze(client['trade'], pair, markets[pair], balances)
+            # url = 'https://api.kreeper.trade/mysteries/analyze'
+            url = 'https://35.247.36.101/mysteries/analyze'
+            payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
+            data = requests.get(url, data = payload)
             
             # check if it's the best buy out of all the positions being analyzed
             if ('buy' in data[1]):

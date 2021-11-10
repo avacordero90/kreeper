@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# THIS ENTIRE SCRIPT MAY VERY LIKELY BE REPLACED WITH A BREW SCRIPT IN THE FUTURE!
+
 echo "initializing kreeper server installation ..."
 
 sleep 1
@@ -39,19 +41,21 @@ if [[ $answer == 'y'* ]]; then
             if [[ ! $1 ]]; then
                 sudo make && sudo make install
 
-                sudo ln -s ~/python/python /usr/bin/python 2>/dev/null
-                sudo ln -s ~/python3/python /usr/bin/python3 2>/dev/null
-                sudo ln -s ~/python3.9/python /usr/bin/python3.9 2>/dev/null
+                sudo ln -sf ~/python3.9/python /usr/bin/python
+                sudo ln -sf ~/python3.9/python /usr/bin/python3
+                sudo ln -sf ~/python3.9/python /usr/bin/python3.9
 
                 cd ~/kreeper
 
                 curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
                 python3.9 get-pip.py
+
+                sudo ln -s ~/bin/pip3 /usr/bin/pip
                 
-                sudo ln -s ~/python3.9/bin/pip /usr/bin/pip 2>/dev/null
-                sudo ln -s ~/python3.9/bin/pip3 /usr/bin/pip3 2>/dev/null
-                sudo ln -s ~/python3.9/bin/pip3.9 /usr/bin/pip3.9 2>/dev/null
+                # sudo ln -sf ~/python3.9/bin/pip /usr/bin/pip
+                # sudo ln -sf ~/python3.9/bin/pip3 /usr/bin/pip3
+                # sudo ln -sf ~/python3.9/bin/pip3.9 /usr/bin/pip3.9
 
                 if [[ $1 ]]; then
                 
@@ -71,7 +75,6 @@ if [[ $answer == 'y'* ]]; then
                             if [[ $1 ]]; then
                                 echo -e "installation complete!\n"
                             else
-                            # TO DO: this goes somewhere else
                                 echo -e "installation failed: pipenv or python not found.\n"
                             fi
                         else
