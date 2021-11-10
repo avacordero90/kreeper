@@ -35,7 +35,7 @@ if [[ $answer == 'y'* ]]; then
 
         pip3 install pipenv
 
-        pipenv clean && pipenv shell source ./install/config.sh
+        pipenv clean && pipenv shell source ~/kreeper/setup/config.sh
 
         if [[ $1 ]]; then
             pipenv --version && python3.10 ~/kreeper.py --help
