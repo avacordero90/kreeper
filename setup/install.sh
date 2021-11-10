@@ -61,7 +61,7 @@ if [[ $answer == 'y'* ]]; then
                 
                     rm -f ~/kreeper/get-pip.py
 
-                    pip install -U pipenv
+                    sudo pip install -U pipenv
 
                     if [[ $1 ]]; then
                         # pipenv --python /bin/python3.9
