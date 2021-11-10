@@ -22,36 +22,42 @@ if [[ $answer == 'y'* ]]; then
     git clone git@github.com:avacordero90/kreeper.git
 
     # test that we have git/perms
-    if [[ ! $1 ]]; then
-        echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    if [[ $1 ]]; then
+        cd ~/kreeper
+        if [[ ! $1 ]]; then
+            echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
-        echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+            echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-        brew install python@3.10
+            brew install python@3.10
 
-        echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.10/bin:$PATH"' >> ~/.profile
-        source ~/.profile
+            echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.10/bin:$PATH"' >> ~/.profile
+            source ~/.profile
 
-        pip3 install pipenv
+            pip3 install pipenv
 
-        pipenv clean && pipenv shell source ~/kreeper/setup/config.sh
-
-        if [[ $1 ]]; then
-            pipenv --version && python3.10 ~/kreeper.py --help
+            pipenv clean && pipenv shell source ~/kreeper/setup/config.sh
 
             if [[ $1 ]]; then
-                echo -e "installation complete!\n"
+                pipenv --version && python3.10 ~/kreeper.py --help
+
+                if [[ $1 ]]; then
+                    echo -e "installation complete!\n"
+                else
+                    echo -e "installation failed: pipenv or python not found.\n"
+                fi
             else
-                echo -e "installation failed: pipenv or python not found.\n"
+                echo -e "installation failed!\n"
             fi
+
         else
             echo -e "installation failed!\n"
         fi
 
-    else
-        echo -e "installation failed!\n"
     fi
+
+
 
 else
     echo -e "installation aborted!\n"
