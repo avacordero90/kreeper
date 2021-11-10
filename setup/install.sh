@@ -25,8 +25,8 @@ if [[ $answer == 'y'* ]]; then
         curl -s "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz" -o ~/kreeper/python.tgz && tar -zxvf ~/kreeper/python.tgz
 
         if [[ ! $1 ]]; then
-            sudo rm -rfp python.tgz
-            sudo rm -rfp /usr/bin/python3.9
+            sudo rm -rf python.tgz
+            sudo rm -rf /usr/bin/python3.9
 
             sudo mv ~/kreeper/Python-3.9.6 ~/python3.9 2>/dev/null
             
@@ -34,28 +34,30 @@ if [[ $answer == 'y'* ]]; then
 
             sudo make clean
 
-            sudo ./configure --prefix=${HOME}/localpython --enable-optimizations
+            sudo ./configure --prefix=${HOME} --enable-optimizations
             
             if [[ ! $1 ]]; then
                 sudo make && sudo make install
+
+                sudo ln -s ~/python/python /usr/bin/python 2>/dev/null
+                sudo ln -s ~/python3/python /usr/bin/python3 2>/dev/null
+                sudo ln -s ~/python3.9/python /usr/bin/python3.9 2>/dev/null
 
                 cd ~/kreeper
 
                 curl -s https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 
-                sudo cp -l ~/python3.9/python /usr/bin/python3.9
+                python3.9 get-pip.py
                 
-                ###################################
-                # TO DO - continue coding here!!! #
-                ###################################
+                sudo ln -s ~/python3.9/bin/pip /usr/bin/pip 2>/dev/null
+                sudo ln -s ~/python3.9/bin/pip3 /usr/bin/pip3 2>/dev/null
+                sudo ln -s ~/python3.9/bin/pip3.9 /usr/bin/pip3.9 2>/dev/null
 
-                sudo python39 get-pip.py
-                
                 if [[ $1 ]]; then
                 
                     rm -f ~/kreeper/get-pip.py
 
-                    sudo pip install -U pipenv
+                    pip install -U pipenv
 
                     if [[ $1 ]]; then
                         # pipenv --python /bin/python3.9
