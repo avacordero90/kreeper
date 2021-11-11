@@ -17,7 +17,7 @@ from datetime import datetime
 # local imports
 from source.orders import place_limit_order
 
-from mysteries import analyze
+from kreeper.mysteries import analyze
 
 # function: compile
 # input: client object, coins str list, quotes str list, interval str, bars int
