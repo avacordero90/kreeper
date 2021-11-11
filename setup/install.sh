@@ -29,9 +29,9 @@ if [[ $answer == 'y'* ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
     brew install python@3.10
-
-    echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.10/bin:$PATH"' >> ~/.profile
-    source ~/.profile
+    
+    export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
+    source ~/.profile 
 
     pip3 install pipenv
 
