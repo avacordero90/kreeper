@@ -130,3 +130,4 @@ dmypy.json
 
 # hashicorp vagrant
 .vagrant/
+.DS_Store
