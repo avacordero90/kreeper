@@ -89,7 +89,7 @@ def _parse_args():
 
 # main function
 # program entry point
-if __name__ == "__main__":
+def run_kreeper ():
     # parse arguments
     args = _parse_args()
 
@@ -151,11 +151,21 @@ if __name__ == "__main__":
                     worst = data
         
         if best[0] != '':
-            place_limit_order(client['trade'], *best)
+            yield place_limit_order(client['trade'], *best)
         if worst[0] != '':
-            place_limit_order(client['trade'], *worst)
+            yield place_limit_order(client['trade'], *worst)
         
         print("done.\n")
 
         # run every few seconds. (should we change this or make it adjustable or smth?)
         time.sleep(1)
+
+
+# main function
+# program entry point
+if __name__ == "__main__":
+    kreeper_data = run_kreeper()
+
+    for kd in kreeper_data:
+        # time.sleep(1)
+        print(kd)
