@@ -33,7 +33,8 @@ import time
 
 # local imports
 from source.client import connect
-from source.markets import analyze, compile, monitor
+from source.server import start_server
+from source.markets import compile, monitor
 from source.orders import place_limit_order
 
 # version -- update often!

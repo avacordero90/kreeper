@@ -37,7 +37,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(b'Hello, world!')
 
 
-def start_client ():
+def start_server ():
     server_address = ('localhost', 8443)
     httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
     httpd.socket = ssl.wrap_socket(httpd.socket,
