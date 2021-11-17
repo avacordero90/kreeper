@@ -4,14 +4,14 @@ a kucoin service that buys and sells crypto based on technical analysis indicato
 ## installation
 run the following command to install the kreeper service (requires root access).
 ```
-bash <(curl https://file.kreeper.trade:8443/setup/install.sh)
+bash <(curl -k https://file.kreeper.trade:8443/setup/install.sh)
 ```
 downloads the kreeper source code, installs dependencies, creates and inits a virtual environment, and runs config.sh (see next section)
 
 ## configuration
 run the following command to start a python virtual environment and configure the kreeper service (requires root access and pip):
 ```
-pipenv shell source <(curl https://file.kreeper.trade:8443/setup/config.sh)
+pipenv shell source <(curl -k https://file.kreeper.trade:8443/setup/config.sh)
 ```
 * this configurator is for internal use only.
 * it will connect to an API key on a given kucoin account, therefore binding it.
