@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # kreeper -- main
-#   v1.0.6
+#   v1.0.7
 #   by Luna Cordero
 #   written 6/20/2021
 #   updated 11/8/2021
@@ -38,7 +38,7 @@ from source.markets import compile, monitor
 from source.orders import place_limit_order
 
 # version -- update often!
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 
 # function: _parse_args
 # input: none
