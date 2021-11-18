@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # kreeper -- main
-#   v1.0.6
+#   v1.0.7
 #   by Luna Cordero
 #   written 6/20/2021
 #   updated 11/8/2021
@@ -33,11 +33,12 @@ import time
 
 # local imports
 from source.client import connect
-from source.markets import analyze, compile, monitor
+from source.server import start_server
+from source.markets import compile, monitor
 from source.orders import place_limit_order
 
 # version -- update often!
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 
 # function: _parse_args
 # input: none
@@ -89,7 +90,7 @@ def _parse_args():
 
 # main function
 # program entry point
-if __name__ == "__main__":
+def run_kreeper ():
     # parse arguments
     args = _parse_args()
 
@@ -151,11 +152,21 @@ if __name__ == "__main__":
                     worst = data
         
         if best[0] != '':
-            place_limit_order(client['trade'], *best)
+            yield place_limit_order(client['trade'], *best)
         if worst[0] != '':
-            place_limit_order(client['trade'], *worst)
+            yield place_limit_order(client['trade'], *worst)
         
         print("done.\n")
 
         # run every few seconds. (should we change this or make it adjustable or smth?)
         time.sleep(1)
+
+
+# main function
+# program entry point
+if __name__ == "__main__":
+    kreeper_data = run_kreeper()
+
+    for kd in kreeper_data:
+        # time.sleep(1)
+        print(kd)
