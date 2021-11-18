@@ -139,7 +139,7 @@ def run_kreeper ():
             
             # analyze each table to determine action
             # url = 'https://api.kreeper.trade/mysteries/analyze'
-            url = 'https://api.kreeper.trade:444/mysteries/analyze'
+            url = 'https://api.kreeper.trade/mysteries/analyze'
             payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
             data = requests.get(url, data = payload)
             
