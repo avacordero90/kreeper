@@ -49,7 +49,7 @@ if [[ $answer == 'y'* ]]; then
         pipenv --version
 
         if [[ $1 ]]; then
-            echo -e "installation complete! Moving on\n"
+            echo -e "installation complete!\n"
         else
             echo -e "installation failed: pipenv or python not found.\n"
         fi
