@@ -65,6 +65,12 @@ def _parse_args():
                         help='displays all logging and market data')
     parser.add_argument('--version', dest='version', action='store_true',
                         help='displays the current kreeper version')
+    parser.add_argument('-k', '--key', dest='secret', type=str,
+                        help='API key')
+    parser.add_argument('-s', '--secret', dest='secret', type=str,
+                        help='API secret')
+    parser.add_argument('-p', '--passphrase', dest='passphrase', type=str,
+                        help='API passphrase')
 
 
     args = parser.parse_args()
@@ -139,7 +145,7 @@ def run_kreeper ():
             
             # analyze each table to determine action
             # url = 'https://api.kreeper.trade/mysteries/analyze'
-            url = 'https://35.247.36.101/mysteries/analyze'
+            url = 'https://api.kreeper.trade/mysteries/analyze'
             payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
             data = requests.get(url, data = payload)
             
