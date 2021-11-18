@@ -37,17 +37,19 @@ if [[ $answer == 'y'* ]]; then
 
     rm -f ~/kreeper/Pipfile
 
-    pipenv clean && pipenv shell source ~/kreeper/setup/config.sh
+    pipenv clean
 
-    ln -s ~/kreeper/kreeper.py /usr/local/bin/kreeper.py --force
+    ln -s ~/kreeper/kreeper.py /home/linuxbrew/.linuxbrew/bin/kreeper.py --force
     chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
     source ~/.profile
 
+    pipenv shell source ~/kreeper/setup/config.sh
+
     if [[ $1 ]]; then
-        pipenv --version && kreeper.py --help
+        pipenv --version
 
         if [[ $1 ]]; then
-            echo -e "installation complete!\n"
+            echo -e "installation complete! Moving on\n"
         else
             echo -e "installation failed: pipenv or python not found.\n"
         fi
