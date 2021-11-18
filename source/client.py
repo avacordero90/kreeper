@@ -17,7 +17,7 @@ from kucoin.client import User, Trade, Market
 # input: none
 # output: API client object
 # description: connects the client to the API
-def connect():
+def connect(api_key=None, api_secret=None, api_passphrase=None):
     # init
 
     print(os.environ.get('KUCOIN_KEY'))
@@ -27,9 +27,9 @@ def connect():
         sys.exit("ENVIRONMENTAL VARIABLES MISSING! declare KUCOIN_KEY, KUCOIN_SECRET, AND KUCOIN_PASSPHRASE to continue. run install.sh or config.sh if you know what you're doing, or see README.md for details.")
 
     # kucoin-python
-    api_key = os.environ.get('KUCOIN_KEY')
-    api_secret = os.environ.get('KUCOIN_SECRET')
-    api_passphrase = os.environ.get('KUCOIN_PASSPHRASE')
+    api_key = None | os.environ.get('KUCOIN_KEY')
+    api_secret = None | os.environ.get('KUCOIN_SECRET')
+    api_passphrase = None | os.environ.get('KUCOIN_PASSPHRASE')
 
     # build a set of API connections
     client = {}
