@@ -10,7 +10,7 @@ echo "requires debian-based linux and root access."
 echo "recommended to install to a container."
 echo "========================================================"
 
-echo "continue? Y/n"
+echo "continue? yes/no"
 read answer
 
 if [[ $answer == 'y'* ]]; then
@@ -39,8 +39,12 @@ if [[ $answer == 'y'* ]]; then
 
     pipenv clean && pipenv shell source ~/kreeper/setup/config.sh
 
+    ln -s ~/kreeper/kreeper.py /usr/local/bin/kreeper.py --force
+    chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
+    source ~/.profile
+
     if [[ $1 ]]; then
-        pipenv --version && python3.10 ~/kreeper.py --help
+        pipenv --version && kreeper.py --help
 
         if [[ $1 ]]; then
             echo -e "installation complete!\n"
