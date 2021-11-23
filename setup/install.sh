@@ -7,7 +7,7 @@ sleep 1
 echo "========================================================"
 echo "this installer is for internal use only."
 echo "requires debian-based linux and root access."
-echo "recommended to install to a container."
+echo "recommended to install to a vm or docker container."
 echo "========================================================"
 
 echo "continue? yes/no"
@@ -17,7 +17,8 @@ if [[ $answer == 'y'* ]]; then
     cd ~
     rm -rf ~/kreeper/
 
-    sudo apt install git -y
+    apt update && \
+        apt install -y curl git
 
     git clone git@github.com:avacordero90/kreeper.git
 
