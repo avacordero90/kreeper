@@ -32,19 +32,20 @@ if [[ $answer == 'y'* ]]; then
     brew install python@3.10
     
     export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
-    source ~/.profile 
+    source ~/.profile
 
-    pip3 install pipenv
+    # pip3 install pipenv
 
-    rm -f ~/kreeper/Pipfile
+    # rm -f ~/kreeper/Pipfile
 
-    pipenv clean
+    # pipenv clean
 
     ln -s ~/kreeper/kreeper.py /home/linuxbrew/.linuxbrew/bin/kreeper.py --force
     chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
     source ~/.profile
 
-    pipenv shell source ~/kreeper/setup/config.sh
+    # pipenv shell source ~/kreeper/setup/config.sh
+    source ~/kreeper/setup/config.sh
 
     if [[ $1 ]]; then
         pipenv --version
