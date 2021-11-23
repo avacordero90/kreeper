@@ -15,14 +15,14 @@ read answer
 
 if [[ $answer == 'y'* ]]; then
     cd ~
-    rm -rf ~/kreeper/
+    rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
         apt install -y curl git
-
+    mkdir ~/kreeper/ && cd ~/kreeper/
     git clone git@github.com:avacordero90/kreeper.git
 
-    cd ~/kreeper
+    # cd ~/kreeper
 
     echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
@@ -47,17 +47,17 @@ if [[ $answer == 'y'* ]]; then
     # pipenv shell source ~/kreeper/setup/config.sh
     source ~/kreeper/setup/config.sh
 
-    if [[ $1 ]]; then
-        pipenv --version
+    # if [[ $1 ]]; then
+        # pipenv --version
 
         if [[ $1 ]]; then
             echo -e "installation complete!\n"
         else
-            echo -e "installation failed: pipenv or python not found.\n"
+            echo -e "installation failed: unknown error.\n"
         fi
-    else
-        echo -e "installation failed!\n"
-    fi
+    # else
+    #     echo -e "installation failed!\n"
+    # fi
 
 else
     echo -e "installation aborted!\n"
