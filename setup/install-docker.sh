@@ -18,7 +18,7 @@ if [[ $answer == 'y'* ]]; then
     rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
-        apt install -y curl git python=3.10
+        apt install -y curl git python3=3.10
 
     git clone git@github.com:avacordero90/kreeper.git
 
