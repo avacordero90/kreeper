@@ -18,18 +18,18 @@ if [[ $answer == 'y'* ]]; then
     rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
-        apt install -y curl git
+        apt install -y curl git python=3.10
 
     git clone git@github.com:avacordero90/kreeper.git
 
     # cd ~/kreeper
 
-    echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+    # echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    # echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
+    # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-    apt install python=3.10
+    # brew install python@3.10
     
     # export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
     # source ~/.profile
