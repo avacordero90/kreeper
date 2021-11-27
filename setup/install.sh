@@ -32,7 +32,6 @@ if [[ $answer == 'y'* ]]; then
     brew install python@3.10
     
     export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
-    export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
     source ~/.profile
 
     # pip3 install pipenv
