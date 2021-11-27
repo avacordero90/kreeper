@@ -20,8 +20,8 @@ if [[ $answer == 'y'* ]]; then
     apt update && \
         apt install -y curl git
 
-    git clone https://github.com/avacordero90/kreeper.git
-    
+    git clone git@github.com:avacordero90/kreeper.git
+
     # cd ~/kreeper
 
     echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
