@@ -18,7 +18,7 @@ if [[ $answer == 'y'* ]]; then
     rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
-        apt install -y curl git python3
+        apt install -y curl git python3 python3-pip
 
     git clone git@github.com:avacordero90/kreeper.git
 
@@ -40,9 +40,9 @@ if [[ $answer == 'y'* ]]; then
 
     # pipenv clean
 
-    # ln -s ~/kreeper/kreeper.py /home/linuxbrew/.linuxbrew/bin/kreeper.py --force
-    # chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
-    # source ~/.profile
+    ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
+    # chmod u+x /usr/bin/kreeper.py
+    source ~/.profile
 
     # pipenv shell source ~/kreeper/setup/config.sh
     source ~/kreeper/setup/config.sh

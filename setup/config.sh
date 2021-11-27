@@ -34,7 +34,7 @@ if [[ $answer == 'y'* ]]; then
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'kreeper.py'" 
     kreeper.py --help
-    exit 1
+    return 1
 else
     echo -e "configuration aborted!\n"
 fi
