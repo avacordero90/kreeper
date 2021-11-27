@@ -1,7 +1,6 @@
 certifi==2021.10.8
 charset-normalizer==2.0.7
 idna==3.3
-KuCoin==0.1
 kucoin-python==1.0.9
 numpy==1.21.4
 pandas==1.3.4

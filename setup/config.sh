@@ -17,7 +17,7 @@ read answer
 
 if [[ $answer == 'y'* ]]; then
     
-    yes | pip install -r ~/kreeper/requirements.txt
+    pip3 install -r ~/kreeper/requirements.txt
 
     echo "enter kucoin API key:"
     read -s KUCOIN_KEY
