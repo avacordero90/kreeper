@@ -1,4 +1,4 @@
-FROM python:alpine3.10
+FROM kreeper:kreeper
 COPY . /kreeper
 WORKDIR /kreeper
-CMD python3 kreeper.py
+CMD kreeper.py
