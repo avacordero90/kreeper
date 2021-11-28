@@ -39,9 +39,7 @@ if [[ $answer == 'y'* ]]; then
     # rm -f ~/kreeper/Pipfile
 
     # pipenv clean
-
-    ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py
-    chmod u+x /usr/bin/kreeper.py
+    
     source ~/.profile
 
     # pipenv shell source ~/kreeper/setup/config.sh

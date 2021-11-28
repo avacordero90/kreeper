@@ -19,7 +19,7 @@ from datetime import datetime
 # output: quantity to buy or sell
 # description: analyzes dataframe to decide what to do with stock based on 
 def analyze(request):
-    pair, table, balances = request.pair, request.table, request.balances
+    pair, table, balances = request["pair"], request["table"], request["balances"]
 
     # find the current rsi
     current_rsi = table['RSI_14'][-1]
