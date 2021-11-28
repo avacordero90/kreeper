@@ -34,7 +34,7 @@ import time
 # local imports
 from source.client import connect
 from source.server import start_server
-from source.markets import compile, monitor
+from source.markets import analyze, compile, monitor
 from source.orders import place_limit_order
 
 # version -- update often!
@@ -144,10 +144,11 @@ def run_kreeper ():
                 monitor(pair, markets[pair], args.lines or 10, args.verbose or False) # default to 10 lines of data
             
             # analyze each table to determine action
-            # url = 'https://api.kreeper.trade/mysteries/analyze'
-            url = 'https://api.kreeper.trade/mysteries/analyze'
+            # url = 'https://api.kreeper.trade/kreeper'
             payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
-            data = requests.get(url, data = payload)
+            # data = requests.get(url, data = payload)
+
+            data = analyze(payload)
             
             # check if it's the best buy out of all the positions being analyzed
             if ('buy' in data[1]):

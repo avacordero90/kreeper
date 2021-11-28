@@ -1,4 +1,3 @@
-FROM kreeper:kreeper
-COPY . /kreeper
-WORKDIR /kreeper
-CMD kreeper.py
+FROM kreeperlabs/kreeper:latest
+WORKDIR /root/kreeper
+CMD bash
