@@ -65,7 +65,7 @@ def _parse_args():
                         help='displays all logging and market data')
     parser.add_argument('--version', dest='version', action='store_true',
                         help='displays the current kreeper version')
-    parser.add_argument('-k', '--key', dest='secret', type=str,
+    parser.add_argument('-k', '--key', dest='key', type=str,
                         help='API key')
     parser.add_argument('-s', '--secret', dest='secret', type=str,
                         help='API secret')
