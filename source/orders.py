@@ -18,4 +18,5 @@ def place_limit_order(client, pair, action, quantity, price):
         print("order successful:", order)
     except Exception as e:
         print("failed to make transaction: ", str(e))
-    return
+    finally:
+        return order

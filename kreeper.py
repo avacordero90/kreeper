@@ -136,6 +136,8 @@ def run_kreeper ():
 
         print("done.\n")
 
+        print("Analyzing the markets ...")
+
         best = ('', 'buy', '0.00', '0.00')
         worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
 
@@ -168,7 +170,7 @@ def run_kreeper ():
         print("done.\n")
 
         # run every few seconds. (should we change this or make it adjustable or smth?)
-        time.sleep(1)
+        # time.sleep(1)
 
 
 # main function
@@ -177,5 +179,5 @@ if __name__ == "__main__":
     kreeper_data = run_kreeper()
 
     for kd in kreeper_data:
-        # time.sleep(1)
+        time.sleep(1)
         print(kd)
