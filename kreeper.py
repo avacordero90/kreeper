@@ -63,7 +63,7 @@ def _parse_args():
                         help='limit of datapoints to return')
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
                         help='displays all logging and market data')
-    parser.add_argument('--version', dest='version', action='store_true',
+    parser.add_argument('-V', '--version', dest='version', action='store_true',
                         help='displays the current kreeper version')
     parser.add_argument('-k', '--key', dest='key', type=str,
                         help='API key')
@@ -101,7 +101,7 @@ def run_kreeper ():
     args = _parse_args()
 
     # connect client to API
-    client = connect()
+    client = connect(None | args.key, None | args.secret, None | args.passphrase)
 
     run = True
     while run:
