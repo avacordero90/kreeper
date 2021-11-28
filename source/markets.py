@@ -136,7 +136,7 @@ def analyze(request):
 # def compile(coins, lines, interval, bars, limit):
 def compile(request):
     # get variables from request
-    client, coins, quotes, interval, bars = request.client, request.coins, request.quotes, request.interval, request.bars
+    client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
     
     # build a list of tables (dataframes)
     tables = {}
@@ -203,7 +203,7 @@ def compile(request):
 # description: prints market data for a given pair
 def monitor(request):
     # get variables from request
-    pair, pair_df, lines, verbose = request.pair, request.pair_df, request.lines, request.verbose
+    pair, pair_df, lines, verbose = request["pair"], request["pair_df"], request["lines"], request["verbose"]
 
     # print out pair data
     print(pair)
