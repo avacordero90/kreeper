@@ -101,7 +101,7 @@ def run_kreeper ():
     args = _parse_args()
 
     # connect client to API
-    client = connect(None | args.key, None | args.secret, None | args.passphrase)
+    client = connect(args.key, args.secret, args.passphrase)
 
     run = True
     while run:
