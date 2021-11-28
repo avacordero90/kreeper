@@ -34,6 +34,8 @@ if [[ $answer == 'y'* ]]; then
     read -s KUCOIN_PASSPHRASE
     export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
 
+    source ~/.profile
+
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'kreeper.py'" 
     kreeper.py --help
