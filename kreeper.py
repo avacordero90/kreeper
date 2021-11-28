@@ -110,7 +110,7 @@ def run_kreeper ():
 
         balances = {}
 
-        print(client['market'])
+        print(client['user'])
 
         # get account balances
         for account in client['user'].get_account_list():
