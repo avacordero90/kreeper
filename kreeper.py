@@ -127,12 +127,12 @@ def run_kreeper ():
 
         # build tables using pandas and technical analysis
         payload = {
-            client['market'],
-            # args.coins or [key for key in balances.keys() if key != 'USD'], # default to all available coins
-            args.coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
-            args.quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
-            args.interval or '1hour', # default to one hour
-            args.bars or 24, # default to number of hours in one day
+            'client': client['market'],
+            # 'coins': args.coins or [key for key in balances.keys() if key != 'USD'], # default to all available coins
+            'coins': args.coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
+            'quotes': args.quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
+            'interval': args.interval or '1hour', # default to one hour
+            'bars': args.bars or 24, # default to number of hours in one day
         }
 
         markets = compile(payload)
@@ -146,7 +146,7 @@ def run_kreeper ():
         for pair in markets.keys():
             # print out markets to terminal if --lines or --verbose are turned on
             if args.lines or args.verbose:
-                payload = {pair, markets[pair], args.lines or 10, args.verbose or False}
+                payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
                 monitor(payload) # default to 10 lines of data
             
             # analyze each table to determine action
