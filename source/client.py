@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 # kreeper -- client
-#   v1.0.6
+#   v1.0.8
 #   by Luna Cordero
 #   written 6/26/2021
-#   updated 11/8/2021
+#   updated 11/28/2021
 
 
 import os
@@ -17,7 +17,7 @@ from kucoin.client import User, Trade, Market
 # input: none
 # output: API client object
 # description: connects the client to the API
-def connect(api_key=None, api_secret=None, api_passphrase=None):
+def _connect(api_key=None, api_secret=None, api_passphrase=None):
     # init
 
     print(os.environ.get('KUCOIN_KEY'))

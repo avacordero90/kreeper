@@ -27,15 +27,18 @@
 import argparse
 import math
 import os
+import ssl
 import sys
-import requests
 import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+# import requests
 
 # local imports
-from source.client import connect
-from source.server import start_server
+from source.client import _connect
 from source.markets import analyze, compile, monitor
 from source.orders import place_limit_order
+from source.server import start_server
 
 # version -- update often!
 VERSION = "1.0.7"
@@ -101,7 +104,7 @@ def run_kreeper ():
     args = _parse_args()
 
     # connect client to API
-    client = connect(args.key, args.secret, args.passphrase)
+    client = _connect(args.key, args.secret, args.passphrase)
 
     run = True
     while run:
@@ -109,8 +112,6 @@ def run_kreeper ():
         print("getting balances ...")
 
         balances = {}
-
-        print(client['user'])
 
         # get account balances
         for account in client['user'].get_account_list():
@@ -125,18 +126,18 @@ def run_kreeper ():
         print("watching the markets ...")
 
         # build tables using pandas and technical analysis
-        markets = compile(
+        payload = {
             client['market'],
             # args.coins or [key for key in balances.keys() if key != 'USD'], # default to all available coins
             args.coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
             args.quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
             args.interval or '1hour', # default to one hour
             args.bars or 24, # default to number of hours in one day
-        )
+        }
+
+        markets = compile(payload)
 
         print("done.\n")
-
-        print("Analyzing the markets ...")
 
         best = ('', 'buy', '0.00', '0.00')
         worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
@@ -145,7 +146,8 @@ def run_kreeper ():
         for pair in markets.keys():
             # print out markets to terminal if --lines or --verbose are turned on
             if args.lines or args.verbose:
-                monitor(pair, markets[pair], args.lines or 10, args.verbose or False) # default to 10 lines of data
+                payload = {pair, markets[pair], args.lines or 10, args.verbose or False}
+                monitor(payload) # default to 10 lines of data
             
             # analyze each table to determine action
             # url = 'https://api.kreeper.trade/kreeper'
@@ -167,10 +169,27 @@ def run_kreeper ():
         if worst[0] != '':
             yield place_limit_order(client['trade'], *worst)
         
-        print("done.\n")
-
         # run every few seconds. (should we change this or make it adjustable or smth?)
         # time.sleep(1)
+
+class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b'Hello, world!')
+
+
+def start_server ():
+    server_address = ('0.0.0.0', 443)
+    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    httpd.socket = ssl.wrap_socket(httpd.socket,
+        server_side = True,
+        certfile = 'ssl/62ba54b69c53d5bf.pem',
+        keyfile = 'ssl/privkey.pem',
+        passphrase = os.getenv('SSL_PASSPHRASE'),
+        ssl_version = ssl.PROTOCOL_TLS)
+    
+    httpd.serve_forever()
 
 
 # main function

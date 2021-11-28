@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 # kreeper -- market
-#   v1.0.6
+#   v1.0.8
 #   by Luna Cordero
 #   written 6/26/2021
-#   updated 11/8/2021
+#   updated 11/28/2021
 
 
 import pandas
@@ -134,7 +134,10 @@ def analyze(request):
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
 # def compile(coins, lines, interval, bars, limit):
-def compile(client, coins, quotes, interval, bars):
+def compile(request):
+    # get variables from request
+    client, coins, quotes, interval, bars = request.client, request.coins, request.quotes, request.interval, request.bars
+    
     # build a list of tables (dataframes)
     tables = {}
 
@@ -198,7 +201,11 @@ def compile(client, coins, quotes, interval, bars):
 # input: pair str, pair dataframe.
 # output: none
 # description: prints market data for a given pair
-def monitor(pair, pair_df, lines=None, verbose=False):
+def monitor(request):
+    # get variables from request
+    pair, pair_df, lines, verbose = request.pair, request.pair_df, request.lines, request.verbose
+
+    # print out pair data
     print(pair)
     if lines:
         print(pair_df.tail(lines))
