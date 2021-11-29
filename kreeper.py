@@ -27,13 +27,12 @@
 import argparse
 import math
 import os
-import ssl
 import sys
 import time
 # from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from flask import Flask, jsonify
-from OpenSSL import SSL
+from OpenSSL import ssl
 
 # local imports
 from source.client import _connect
@@ -48,7 +47,7 @@ from source.server import start_server
 VERSION = "1.0.8"
 
 
-context = SSL.Context(3)
+context = ssl.Context(ssl.PROTOCOL_TLSv1_2)
 context.use_privatekey_file('ssl/privkey.pem')
 context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
 
