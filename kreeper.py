@@ -48,7 +48,7 @@ from source.server import start_server
 VERSION = "1.0.8"
 
 
-context = SSL.Context(SSL.SSL3_VERSION)
+context = SSL.Context(3)
 context.use_privatekey_file('ssl/privkey.pem')
 context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
 
