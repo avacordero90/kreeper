@@ -11,13 +11,16 @@ import pandas
 import pandas_ta
 import sys
 import time
+from flask import Blueprint
 
 from datetime import datetime
 
+app = Blueprint('app', __name__)
 
 # input: client object, pair name, pair table dataframe object, balances dict
 # output: quantity to buy or sell
 # description: analyzes dataframe to decide what to do with stock based on 
+@app.post('/analyze')
 def analyze(request):
     pair, table, balances = request["pair"], request["table"], request["balances"]
 
@@ -126,14 +129,15 @@ def analyze(request):
         return (pair, 'hodl', str(0), str(0))
 
     # print(pair, action, str(round(quantity, 5)), str(price))
-
-    return (pair, action, str(round(quantity, 5)), str(price))
+    response = {'pair': pair, 'action': action, 'quantity': str(round(quantity, 5)), 'price': str(price)}
+    
+    return response
 
 # function: compile
 # input: client object, coins str list, quotes str list, interval str, bars int
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
-# def compile(coins, lines, interval, bars, limit):
+@app.post('/compile')
 def compile(request):
     # get variables from request
     client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
@@ -201,6 +205,7 @@ def compile(request):
 # input: pair str, pair dataframe.
 # output: none
 # description: prints market data for a given pair
+@app.post('/monitor')
 def monitor(request):
     # get variables from request
     pair, pair_df, lines, verbose = request["pair"], request["pair_df"], request["lines"], request["verbose"]

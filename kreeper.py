@@ -30,9 +30,10 @@ import os
 import ssl
 import sys
 import time
-from http.server import BaseHTTPRequestHandler, HTTPServer
+# from http.server import BaseHTTPRequestHandler, HTTPServer
 
-# import requests
+from flask import Flask, jsonify
+from OpenSSL import SSL
 
 # local imports
 from source.client import _connect
@@ -40,8 +41,19 @@ from source.markets import analyze, compile, monitor
 from source.orders import place_limit_order
 from source.server import start_server
 
+# import requests
+
+
 # version -- update often!
-VERSION = "1.0.7"
+VERSION = "1.0.8"
+
+
+context = SSL.Context(SSL.PROTOCOL_TLSv1_2)
+context.use_privatekey_file('ssl/privkey.pem')
+context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
+
+app = Flask(__name__)
+
 
 # function: _parse_args
 # input: none
@@ -172,31 +184,20 @@ def run_kreeper ():
         # run every few seconds. (should we change this or make it adjustable or smth?)
         # time.sleep(1)
 
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b'Hello, world!')
+
+@app.route('/')
+def index():
+    return 'Flask is running!'
 
 
-def start_server ():
-    server_address = ('0.0.0.0', 443)
-    httpd = HTTPServer(server_address, SimpleHTTPRequestHandler)
-    httpd.socket = ssl.wrap_socket(httpd.socket,
-        server_side = True,
-        certfile = 'ssl/62ba54b69c53d5bf.pem',
-        keyfile = 'ssl/privkey.pem',
-        passphrase = os.getenv('SSL_PASSPHRASE'),
-        ssl_version = ssl.PROTOCOL_TLS)
-    
-    httpd.serve_forever()
+if __name__ == '__main__':  
+     app.run(host='0.0.0.0', debug=True, ssl_context=context)
 
+# # main function
+# # program entry point
+# if __name__ == "__main__":
+#     kreeper_data = run_kreeper()
 
-# main function
-# program entry point
-if __name__ == "__main__":
-    kreeper_data = run_kreeper()
-
-    for kd in kreeper_data:
-        time.sleep(1)
-        print(kd)
+#     for kd in kreeper_data:
+#         # time.sleep(1)
+#         print(kd)
