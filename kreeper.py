@@ -110,80 +110,81 @@ def _parse_args():
 @app.route("/run_kreeper", methods = ['POST'])
 def run_kreeper ():
     if request.method == 'POST':
-        print(str(request))
-        return jsonify({"testing": "testing"})
-        
-        # # parse arguments
+        # print(str(request))
+        # return jsonify({"testing": "testing"})
+
+        # parse arguments
         # args = _parse_args()
+        args = request.args
 
-        # # connect client to API
-        # client = _connect(args.key, args.secret, args.passphrase)
+        # connect client to API
+        client = _connect(request.headers["key"], request.headers["secret"], request.headers["passphrase"])
 
-        # run = True
-        # while run:
-        #     # get balances for all assets & some account information
-        #     print("getting balances ...")
+        run = True
+        while run:
+            # get balances for all assets & some account information
+            print("getting balances ...")
 
-        #     balances = {}
+            balances = {}
 
-        #     # get account balances
-        #     for account in client['user'].get_account_list():
-        #         if account['type'] == 'trade':
-        #             # balances = client['user'].get_account(account['id'])
-        #             balances[account['currency']] = float(account['available'])
-        #             if balances[account['currency']] > 0:
-        #                 print (account['currency'], f"{balances[account['currency']]:8f}")
+            # get account balances
+            for account in client['user'].get_account_list():
+                if account['type'] == 'trade':
+                    # balances = client['user'].get_account(account['id'])
+                    balances[account['currency']] = float(account['available'])
+                    if balances[account['currency']] > 0:
+                        print (account['currency'], f"{balances[account['currency']]:8f}")
 
-        #     print("done.\n")
+            print("done.\n")
 
-        #     print("watching the markets ...")
+            print("watching the markets ...")
 
-        #     # build tables using pandas and technical analysis
-        #     payload = {
-        #         'client': client['market'],
-        #         # 'coins': args.coins or [key for key in balances.keys() if key != 'USD'], # default to all available coins
-        #         'coins': args.coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
-        #         'quotes': args.quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
-        #         'interval': args.interval or '1hour', # default to one hour
-        #         'bars': args.bars or 24, # default to number of hours in one day
-        #     }
+            # build tables using pandas and technical analysis
+            payload = {
+                'client': client['market'],
+                # 'coins': args["coins"] or [key for key in balances.keys() if key != 'USD'], # default to all available coins
+                'coins': args["coins"] or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
+                'quotes': args["quotes"] or ['USDT', 'USDC', 'BTC', 'ETH'],
+                'interval': args["interval"] or '1hour', # default to one hour
+                'bars': args["bars"] or 24, # default to number of hours in one day
+            }
 
-        #     markets = compile(payload)
+            markets = compile(payload)
 
-        #     print("done.\n")
+            print("done.\n")
 
-        #     best = ('', 'buy', '0.00', '0.00')
-        #     worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
+            best = ('', 'buy', '0.00', '0.00')
+            worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
 
-        #     # for each table
-        #     for pair in markets.keys():
-        #         # print out markets to terminal if --lines or --verbose are turned on
-        #         if args.lines or args.verbose:
-        #             payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
-        #             monitor(payload) # default to 10 lines of data
+            # for each table
+            for pair in markets.keys():
+                # print out markets to terminal if --lines or --verbose are turned on
+                if args["lines"] or args["verbose"]:
+                    payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
+                    monitor(payload) # default to 10 lines of data
                 
-        #         # analyze each table to determine action
-        #         # url = 'https://api.kreeper.trade/kreeper'
-        #         payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
-        #         # data = requests.get(url, data = payload)
+                # analyze each table to determine action
+                # url = 'https://api.kreeper.trade/kreeper'
+                payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
+                # data = requests.get(url, data = payload)
 
-        #         data = analyze(payload)
+                data = analyze(payload)
                 
-        #         # check if it's the best buy out of all the positions being analyzed
-        #         if ('buy' in data[1]):
-        #             if (float(data[2]) > float(best[2])):
-        #                 best = data
-        #         elif ('sell' in data[1]):
-        #             if (float(data[2]) < float(worst[2])):
-        #                 worst = data
+                # check if it's the best buy out of all the positions being analyzed
+                if ('buy' in data[1]):
+                    if (float(data[2]) > float(best[2])):
+                        best = data
+                elif ('sell' in data[1]):
+                    if (float(data[2]) < float(worst[2])):
+                        worst = data
             
-        #     if best[0] != '':
-        #         return place_limit_order(client['trade'], *best)
-        #     if worst[0] != '':
-        #         return place_limit_order(client['trade'], *worst)
+            if best[0] != '':
+                return jsonify(place_limit_order(client['trade'], *best))
+            if worst[0] != '':
+                return jsonify(place_limit_order(client['trade'], *worst))
             
-        #     # run every few seconds. (should we change this or make it adjustable or smth?)
-        #     # time.sleep(1)
+            # run every few seconds. (should we change this or make it adjustable or smth?)
+            # time.sleep(1)
 
 
 @app.route('/')
