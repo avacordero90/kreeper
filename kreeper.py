@@ -187,7 +187,7 @@ def index():
 
 
 if __name__ == '__main__':  
-    context = ssl.Context(ssl.PROTOCOL_TLS)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     context.use_privatekey_file('ssl/privkey.pem')
     context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
     # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
