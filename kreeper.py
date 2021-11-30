@@ -111,6 +111,7 @@ def _parse_args():
 def run_kreeper ():
     if request.method == 'POST':
         print(str(request))
+        return request
         # # parse arguments
         # args = _parse_args()
 
