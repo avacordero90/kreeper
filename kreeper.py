@@ -188,8 +188,9 @@ def index():
 
 if __name__ == '__main__':  
     context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    context.use_privatekey_file('ssl/privkey.pem')
-    context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
+    context.load_cert_chain('ssl/62ba54b69c53d5bf.pem', keyfile='ssl/privkey.pem')
+    # context.use_privatekey_file('ssl/privkey.pem')
+    # context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
     # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
     app.run(host='0.0.0.0', debug=True, threaded=True, ssl_context=context)
 
