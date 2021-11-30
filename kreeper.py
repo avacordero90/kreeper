@@ -32,7 +32,8 @@ import time
 # from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from flask import Flask, jsonify
-from OpenSSL import SSL
+# from OpenSSL import SSL
+import ssl
 
 # local imports
 from source.client import _connect
@@ -46,10 +47,6 @@ from source.server import start_server
 # version -- update often!
 VERSION = "1.0.8"
 
-
-context = SSL.Context(SSL.TLS_SERVER_METHOD)
-context.use_privatekey_file('ssl/privkey.pem')
-context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
 
 app = Flask(__name__)
 
@@ -190,7 +187,11 @@ def index():
 
 
 if __name__ == '__main__':  
-     app.run(host='0.0.0.0', debug=True, ssl_context=context)
+    context = ssl.Context(ssl.PROTOCOL_TLS)
+    context.use_privatekey_file('ssl/privkey.pem')
+    context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
+    # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
+    app.run(host='0.0.0.0', debug=True, threaded=True, ssl_context=context)
 
 # # main function
 # # program entry point

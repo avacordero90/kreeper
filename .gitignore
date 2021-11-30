@@ -133,3 +133,6 @@ dmypy.json
 .vagrant/
 .DS_Store
 Vagrantfile
+
+# Kreeper Labs
+ssl/*
