@@ -192,7 +192,7 @@ if __name__ == '__main__':
     # context.use_privatekey_file('ssl/privkey.pem')
     # context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
     # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
-    app.run(host='127.0.0.1', port=443, debug=True, threaded=True, ssl_context=context)
+    app.run(host='0.0.0.0', port=443, debug=True, threaded=True, ssl_context=context)
 
 # # main function
 # # program entry point
