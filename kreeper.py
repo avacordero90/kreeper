@@ -115,10 +115,10 @@ def run_kreeper ():
 
         # parse arguments
         # args = _parse_args()
-        args = request.args
+        args = request.args.getlist()
 
         print(str(args))
-        print(str(request.headers))
+        print(str(request.headers.getlist()))
 
         # connect client to API
         client = _connect(request.headers["kucoin-key"], request.headers["kucoin-secret"], request.headers["kucoin-passphrase"])
