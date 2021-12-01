@@ -122,15 +122,19 @@ def run_kreeper ():
         args = request.get_json()
         # print(args)
 
-        if "coins" in args:
-            coins = list(args["coins"])
+        if "coins" in args and type(args["coins"]) is str:
+            coins = [args["coins"]]
+        if "coins" in args and type(args["coins"]) is list:
+            coins = args["coins"]
         else:
             coins = None
         
         # print(coins)
 
-        if "quotes" in args:
-            quotes = list(args["quotes"])
+        if "quotes" in args and type(args["quotes"]) is str:
+            quotes = [args["quotes"]]
+        if "quotes" in args and type(args["quotes"]) is list:
+            quotes = args["quotes"]
         else:
             quotes = None
 
