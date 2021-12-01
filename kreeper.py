@@ -116,7 +116,7 @@ def run_kreeper ():
         # parse arguments
         # args = _parse_args()
         args = request.args
-        proxy_auth = tuple([item for item in request.headers.items()])
+        proxy_auth = (item for item in request.headers.items())
 
 
         print(str(args))
