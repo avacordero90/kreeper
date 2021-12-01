@@ -138,17 +138,14 @@ def analyze(request):
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
 def compile(request):
-    print(request)
     # get variables from request
     client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
-    print(coins)
+    
     # build a list of tables (dataframes)
     tables = {}
 
     # build a list of all symbols on exchange
-    symbols = [symbol['symbol'] for symbol in client.get_symbol_list()]
-
-    print(symbols)
+    symbols = [symbol['symbol'] for symbol in client["market"].get_symbol_list()]
 
     for coin in coins:
         for quote in quotes:
@@ -157,7 +154,7 @@ def compile(request):
                 time.sleep(1) # for rate limiting purposes
 
                 try:
-                    bars = client.get_kline(coin + "-" + quote, interval)
+                    bars = client["market"].get_kline(coin + "-" + quote, interval)
 
                     # print(bars)
                     
