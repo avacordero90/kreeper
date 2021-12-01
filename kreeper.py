@@ -120,7 +120,7 @@ def run_kreeper ():
         kucoin_passphrase = request.headers["kucoin-passphrase"]
 
         coins = request.args.get("coins")
-        print(coins)
+        print(request.get_data())
         quotes = request.args.get("quotes")
         interval = request.args.get("interval")
         bars = request.args.get("bars")
