@@ -115,11 +115,17 @@ def run_kreeper ():
 
         # parse arguments
         # args = _parse_args()
-        args = request.args
         kucoin_key = request.headers["kucoin-key"]
         kucoin_secret = request.headers["kucoin-secret"]
         kucoin_passphrase = request.headers["kucoin-passphrase"]
 
+        coins = request.args["coins"]
+        quotes = request.args["quotes"]
+        interval = request.args["interval"]
+        bars = request.args["bars"]
+
+        lines = request.args["lines"]
+        verbose = request.args["verbose"]
 
         # print(str(args))
 
@@ -149,10 +155,10 @@ def run_kreeper ():
             payload = {
                 'client': client['market'],
                 # 'coins': args["coins"] or [key for key in balances.keys() if key != 'USD'], # default to all available coins
-                'coins': args["coins"] or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
-                'quotes': args["quotes"] or ['USDT', 'USDC', 'BTC', 'ETH'],
-                'interval': args["interval"] or '1hour', # default to one hour
-                'bars': args["bars"] or 24, # default to number of hours in one day
+                'coins': coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
+                'quotes': quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
+                'interval': interval or '1hour', # default to one hour
+                'bars': bars or 24, # default to number of hours in one day
             }
 
             markets = compile(payload)
@@ -165,7 +171,7 @@ def run_kreeper ():
             # for each table
             for pair in markets.keys():
                 # print out markets to terminal if --lines or --verbose are turned on
-                if args["lines"] or args["verbose"]:
+                if lines or verbose:
                     payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
                     monitor(payload) # default to 10 lines of data
                 
