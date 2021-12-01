@@ -126,6 +126,8 @@ def run_kreeper ():
             coins = args["coins"]
         else:
             coins = None
+        
+        print(coins)
 
         if "quotes" in args:
             quotes = args["quotes"]
