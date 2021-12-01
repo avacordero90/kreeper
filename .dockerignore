@@ -1,5 +1,0 @@
-# ignore ssl files
-ssl/
-ssl/*
-*/ssl/
-*/ssl/*
