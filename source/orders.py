@@ -10,12 +10,17 @@
 # input: client, pair, quantity, price
 # output : none
 # description: places a purchase or sale limit order
-def place_limit_order(client, pair, action, quantity, price):        
+from flask.json import JSONDecoder, jsonify
+
+
+def place_limit_order(client, order_dict):
     # place a limit order
     try:
+        pair, action, quantity, price = order_dict["pair"], order_dict["action"], order_dict["quantity"], order_dict["price"]
         print('>>>\t' + action + 'ing', quantity, pair, "\t<<<")
         order = client.create_limit_order(pair, action, quantity, price)
         print("order successful:", order)
         return order
     except Exception as e:
         print("failed to make transaction: ", str(e))
+        return jsonify({"error": str(e)})
