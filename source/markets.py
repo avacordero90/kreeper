@@ -20,7 +20,6 @@ app = Blueprint('app', __name__)
 # input: client object, pair name, pair table dataframe object, balances dict
 # output: quantity to buy or sell
 # description: analyzes dataframe to decide what to do with stock based on 
-@app.post('/analyze')
 def analyze(request):
     pair, table, balances = request["pair"], request["table"], request["balances"]
 
@@ -137,7 +136,6 @@ def analyze(request):
 # input: client object, coins str list, quotes str list, interval str, bars int
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
-@app.post('/compile')
 def compile(request):
     # get variables from request
     client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
