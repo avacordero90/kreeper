@@ -125,9 +125,10 @@ def analyze(request):
                 #     print("failed to make transaction: ", str(e))
 
     else:
-        return (pair, 'hodl', str(0), str(0))
+        response = {'pair': pair, 'action': 'hodl', 'quantity': str(0), 'price': str(0)}
+        
+        return response
 
-    # print(pair, action, str(round(quantity, 5)), str(price))
     response = {'pair': pair, 'action': action, 'quantity': str(round(quantity, 5)), 'price': str(price)}
     
     return response
