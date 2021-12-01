@@ -16,8 +16,11 @@ echo "continue? yes/no"
 read answer
 
 if [[ $answer == 'y'* ]]; then
-    
-    yes | pip install -r ~/kreeper/requirements.txt
+    rm -f /usr/bin/kreeper.py
+    ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
+    chmod u+x /usr/bin/kreeper.py
+
+    pip3 install -r ~/kreeper/requirements.txt
 
     echo "enter kucoin API key:"
     read -s KUCOIN_KEY
@@ -30,6 +33,8 @@ if [[ $answer == 'y'* ]]; then
     echo "enter kucoin API passphrase: "
     read -s KUCOIN_PASSPHRASE
     export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
+
+    source ~/.profile
 
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'kreeper.py'" 

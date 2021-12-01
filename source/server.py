@@ -3,7 +3,7 @@
 # kreeper -- main
 #   by Luna Cordero
 #   written 6/20/2021
-#   updated 11/17/2021
+#   updated 11/28/2021
 
 # sources:
 #   https://github.com/binance-us/binance-official-api-docs

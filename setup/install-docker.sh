@@ -21,27 +21,7 @@ if [[ $answer == 'y'* ]]; then
         apt install -y curl git python3 python3-pip
 
     git clone git@github.com:avacordero90/kreeper.git
-
-    # cd ~/kreeper
-
-    # echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-
-    # echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
-    # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    # brew install python@3.10
     
-    # export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
-    # source ~/.profile
-
-    # pip3 install pipenv
-
-    # rm -f ~/kreeper/Pipfile
-
-    # pipenv clean
-
-    ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
-    # chmod u+x /usr/bin/kreeper.py
     source ~/.profile
 
     # pipenv shell source ~/kreeper/setup/config.sh

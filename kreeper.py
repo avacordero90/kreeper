@@ -4,7 +4,7 @@
 #   v1.0.7
 #   by Luna Cordero
 #   written 6/20/2021
-#   updated 11/8/2021
+#   updated 11/28/2021
 
 # sources:
 #   https://github.com/binance-us/binance-official-api-docs
@@ -28,17 +28,28 @@ import argparse
 import math
 import os
 import sys
-import requests
 import time
+# from http.server import BaseHTTPRequestHandler, HTTPServer
+
+from flask import Flask, jsonify, request
+# from OpenSSL import SSL
+import ssl
 
 # local imports
-from source.client import connect
-from source.server import start_server
-from source.markets import compile, monitor
+from source.client import _connect
+from source.markets import analyze, compile, monitor
 from source.orders import place_limit_order
+from source.server import start_server
+
+# import requests
+
 
 # version -- update often!
-VERSION = "1.0.7"
+VERSION = "1.0.8"
+
+
+app = Flask(__name__)
+
 
 # function: _parse_args
 # input: none
@@ -63,9 +74,9 @@ def _parse_args():
                         help='limit of datapoints to return')
     parser.add_argument('-v', '--verbose', dest='verbose', action='store_true',
                         help='displays all logging and market data')
-    parser.add_argument('--version', dest='version', action='store_true',
+    parser.add_argument('-V', '--version', dest='version', action='store_true',
                         help='displays the current kreeper version')
-    parser.add_argument('-k', '--key', dest='secret', type=str,
+    parser.add_argument('-k', '--key', dest='key', type=str,
                         help='API key')
     parser.add_argument('-s', '--secret', dest='secret', type=str,
                         help='API secret')
@@ -96,15 +107,65 @@ def _parse_args():
 
 # main function
 # program entry point
+@app.route("/run_kreeper", methods = ['POST'])
 def run_kreeper ():
-    # parse arguments
-    args = _parse_args()
+    if request.method == 'POST':
+        print(str(request))
+        # return jsonify({"testing": "testing"})
 
-    # connect client to API
-    client = connect()
+        # parse arguments
+        # args = _parse_args()
+        kucoin_key = request.headers["kucoin-key"]
+        kucoin_secret = request.headers["kucoin-secret"]
+        kucoin_passphrase = request.headers["kucoin-passphrase"]
 
-    run = True
-    while run:
+        args = request.get_json()
+        # print(args)
+
+        if "coins" in args and type(args["coins"]) is str:
+            coins = [args["coins"]]
+        elif "coins" in args and type(args["coins"]) is list:
+            coins = args["coins"]
+        else:
+            coins = None
+        
+        # print(coins)
+
+        if "quotes" in args and type(args["quotes"]) is str:
+            quotes = [args["quotes"]]
+        elif "quotes" in args and type(args["quotes"]) is list:
+            quotes = args["quotes"]
+        else:
+            quotes = None
+
+        if "interval" in args:
+            interval = args["interval"]
+        else:
+            interval = None
+
+        if "bars" in args:
+            bars = args["bars"]
+        else:
+            bars = None
+
+        if "lines" in args:
+            lines = args["lines"]
+        else:
+            lines = None
+
+        if "verbose" in args:
+            verbose = args["verbose"]
+        else:
+            verbose = None
+
+        # print(str(args))
+
+        # connect client to API
+        client = _connect(kucoin_key, kucoin_secret, kucoin_passphrase)
+
+        # run = True
+        # while run:
+            
         # get balances for all assets & some account information
         print("getting balances ...")
 
@@ -123,56 +184,91 @@ def run_kreeper ():
         print("watching the markets ...")
 
         # build tables using pandas and technical analysis
-        markets = compile(
-            client['market'],
-            # args.coins or [key for key in balances.keys() if key != 'USD'], # default to all available coins
-            args.coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
-            args.quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
-            args.interval or '1hour', # default to one hour
-            args.bars or 24, # default to number of hours in one day
-        )
+        payload = {
+            'client': client['market']
+        }
+
+        if coins:
+            payload["coins"] = coins
+        else:
+            payload["coins"] = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
+
+        if quotes:
+            payload["quotes"] = quotes
+        else:
+            payload["quotes"] = ['USDT', 'USDC', 'BTC', 'ETH']
+
+        if interval:
+            payload["interval"] = interval
+        else:
+            payload["interval"] = "1hour" # default to one hour
+
+        if bars:
+            payload["bars"] = bars
+        else:
+            payload["bars"] = 24 # default to number of hours in one day
+
+        markets = compile(payload)
 
         print("done.\n")
 
-        best = ('', 'buy', '0.00', '0.00')
-        worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
+        best = {"pair": '', "action": 'buy', "quantity": '0.00', "price": '0.00'}
+        worst = {"pair": '', "action": 'sell', "quantity": str(float(math.inf)), "price": str(float(math.inf))}
 
         # for each table
         for pair in markets.keys():
             # print out markets to terminal if --lines or --verbose are turned on
-            if args.lines or args.verbose:
-                monitor(pair, markets[pair], args.lines or 10, args.verbose or False) # default to 10 lines of data
+            if lines or verbose:
+                payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
+                monitor(payload) # default to 10 lines of data
             
             # analyze each table to determine action
-            # url = 'https://api.kreeper.trade/mysteries/analyze'
-            url = 'https://api.kreeper.trade/mysteries/analyze'
+            # url = 'https://api.kreeper.trade/kreeper'
             payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
-            data = requests.get(url, data = payload)
+            # data = requests.get(url, data = payload)
+
+            data = analyze(payload)
             
             # check if it's the best buy out of all the positions being analyzed
-            if ('buy' in data[1]):
-                if (float(data[2]) > float(best[2])):
+            if ('buy' in data["action"]):
+                if (float(data["quantity"]) * float(data["price"]) > float(best["quantity"]) * float(data["price"])):
                     best = data
-            elif ('sell' in data[1]):
-                if (float(data[2]) < float(worst[2])):
+            elif ('sell' in data["action"]):
+                if (float(data["quantity"]) * float(data["price"]) < float(worst["quantity"]) * float(data["price"])):
                     worst = data
         
-        if best[0] != '':
-            yield place_limit_order(client['trade'], *best)
-        if worst[0] != '':
-            yield place_limit_order(client['trade'], *worst)
+        if best["pair"] != '':
+            # return jsonify(place_limit_order(client['trade'], best))
+            return place_limit_order(client['trade'], best)
+
+        if worst["pair"] != '':
+            # return jsonify(place_limit_order(client['trade'], worst))
+            return place_limit_order(client['trade'], worst)
+
+        return jsonify({"orderId": 0})
         
-        print("done.\n")
-
         # run every few seconds. (should we change this or make it adjustable or smth?)
-        time.sleep(1)
-
-
-# main function
-# program entry point
-if __name__ == "__main__":
-    kreeper_data = run_kreeper()
-
-    for kd in kreeper_data:
         # time.sleep(1)
-        print(kd)
+
+
+@app.route('/')
+def index():
+    return 'Flask is running!'
+
+
+if __name__ == '__main__':  
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    context.load_cert_chain('ssl/62ba54b69c53d5bf.pem', keyfile='ssl/privkey.pem')
+    # context.use_privatekey_file('ssl/privkey.pem')
+    # context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
+    # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
+    app.run(host='0.0.0.0', port=443, debug=True, threaded=True, ssl_context=context)
+
+# # main function
+# # program entry point
+# if __name__ == "__main__":
+#     kreeper_data = run_kreeper()
+
+#     for kd in kreeper_data:
+#         # time.sleep(1)
+#         print(kd)

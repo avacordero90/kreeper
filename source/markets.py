@@ -1,25 +1,27 @@
 #!/usr/bin/env python3
 
 # kreeper -- market
-#   v1.0.6
+#   v1.0.8
 #   by Luna Cordero
 #   written 6/26/2021
-#   updated 11/8/2021
+#   updated 11/28/2021
 
 
 import pandas
 import pandas_ta
 import sys
 import time
+from flask import Blueprint
 
 from datetime import datetime
 
+app = Blueprint('app', __name__)
 
 # input: client object, pair name, pair table dataframe object, balances dict
 # output: quantity to buy or sell
 # description: analyzes dataframe to decide what to do with stock based on 
 def analyze(request):
-    pair, table, balances = request.pair, request.table, request.balances
+    pair, table, balances = request["pair"], request["table"], request["balances"]
 
     # find the current rsi
     current_rsi = table['RSI_14'][-1]
@@ -123,18 +125,22 @@ def analyze(request):
                 #     print("failed to make transaction: ", str(e))
 
     else:
-        return (pair, 'hodl', str(0), str(0))
+        response = {'pair': pair, 'action': 'hodl', 'quantity': str(0), 'price': str(0)}
+        
+        return response
 
-    # print(pair, action, str(round(quantity, 5)), str(price))
-
-    return (pair, action, str(round(quantity, 5)), str(price))
+    response = {'pair': pair, 'action': action, 'quantity': str(round(quantity, 2)), 'price': str(price)}
+    
+    return response
 
 # function: compile
 # input: client object, coins str list, quotes str list, interval str, bars int
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
-# def compile(coins, lines, interval, bars, limit):
-def compile(client, coins, quotes, interval, bars):
+def compile(request):
+    # get variables from request
+    client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
+    
     # build a list of tables (dataframes)
     tables = {}
 
@@ -148,6 +154,7 @@ def compile(client, coins, quotes, interval, bars):
                 time.sleep(1) # for rate limiting purposes
 
                 try:
+                    print(coin, quote, interval)
                     bars = client.get_kline(coin + "-" + quote, interval)
 
                     # print(bars)
@@ -198,7 +205,12 @@ def compile(client, coins, quotes, interval, bars):
 # input: pair str, pair dataframe.
 # output: none
 # description: prints market data for a given pair
-def monitor(pair, pair_df, lines=None, verbose=False):
+@app.post('/monitor')
+def monitor(request):
+    # get variables from request
+    pair, pair_df, lines, verbose = request["pair"], request["pair_df"], request["lines"], request["verbose"]
+
+    # print out pair data
     print(pair)
     if lines:
         print(pair_df.tail(lines))
