@@ -201,7 +201,7 @@ def run_kreeper ():
             if bars:
                 payload["bars"] = bars
             else:
-                payload["bars"] = 24, # default to number of hours in one day
+                payload["bars"] = 24 # default to number of hours in one day
 
             markets = compile(payload)
 
