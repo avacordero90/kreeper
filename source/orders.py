@@ -16,7 +16,6 @@ def place_limit_order(client, pair, action, quantity, price):
         print('>>>\t' + action + 'ing', quantity, pair, "\t<<<")
         order = client.create_limit_order(pair, action, quantity, price)
         print("order successful:", order)
+        return order
     except Exception as e:
         print("failed to make transaction: ", str(e))
-    finally:
-        return order

@@ -201,7 +201,7 @@ def run_kreeper ():
         if interval:
             payload["interval"] = interval
         else:
-            payload["interval"] = '1hour', # default to one hour
+            payload["interval"] = "1hour", # default to one hour
 
         if bars:
             payload["bars"] = bars
