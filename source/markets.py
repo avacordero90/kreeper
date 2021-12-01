@@ -138,6 +138,7 @@ def analyze(request):
 # output: coin dataframe list
 # description: creates and cleans up a list of dataframes containing a market data about a coin
 def compile(request):
+    print(request)
     # get variables from request
     client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
     
