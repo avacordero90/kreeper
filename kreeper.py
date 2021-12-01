@@ -110,16 +110,16 @@ def _parse_args():
 @app.route("/run_kreeper", methods = ['POST'])
 def run_kreeper ():
     if request.method == 'POST':
-        # print(str(request))
+        print(str(request))
         # return jsonify({"testing": "testing"})
 
         # parse arguments
         # args = _parse_args()
         args = request.args
-        proxy_auth = tuple(request.headers["authorization"].split(" // "))
+        proxy_auth = tuple(request.headers[1:])
 
         print(str(args))
-        print(str(request.headers))
+        print(str(proxy_auth))
 
         # connect client to API
         client = _connect(proxy_auth)
