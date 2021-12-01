@@ -145,7 +145,7 @@ def compile(request):
     tables = {}
 
     # build a list of all symbols on exchange
-    symbols = [symbol['symbol'] for symbol in client["market"].get_symbol_list()]
+    symbols = [symbol['symbol'] for symbol in client["Market"].get_symbol_list()]
 
     for coin in coins:
         for quote in quotes:
@@ -154,7 +154,7 @@ def compile(request):
                 time.sleep(1) # for rate limiting purposes
 
                 try:
-                    bars = client["market"].get_kline(coin + "-" + quote, interval)
+                    bars = client["Market"].get_kline(coin + "-" + quote, interval)
 
                     # print(bars)
                     
