@@ -116,7 +116,12 @@ def run_kreeper ():
         # parse arguments
         # args = _parse_args()
         args = request.args
-        proxy_auth = request.headers
+        proxy_auth = (
+            request.headers.getlist()["kucoin-key"],
+            request.headers.getlist()["kucoin-secret"],
+            request.headers.getlist()["kucoin-passphrase"]
+
+        )
 
 
         print(str(args))
