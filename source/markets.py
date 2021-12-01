@@ -154,6 +154,7 @@ def compile(request):
                 time.sleep(1) # for rate limiting purposes
 
                 try:
+                    print(coin, quote, interval)
                     bars = client.get_kline(coin + "-" + quote, interval)
 
                     # print(bars)

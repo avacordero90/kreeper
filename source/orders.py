@@ -17,7 +17,7 @@ def place_limit_order(client, order_dict):
     # place a limit order
     try:
         pair, action, quantity, price = order_dict["pair"], order_dict["action"], order_dict["quantity"], order_dict["price"]
-        print('>>>\t' + action + 'ing', quantity, pair, "\t<<<")
+        print('>>>\t' + action + 'ing', quantity, pair, "at", price, "\t<<<")
         order = client.create_limit_order(pair, action, quantity, price)
         print("order successful:", order)
         return order
