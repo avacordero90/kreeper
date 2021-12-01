@@ -159,86 +159,87 @@ def run_kreeper ():
         # connect client to API
         client = _connect(kucoin_key, kucoin_secret, kucoin_passphrase)
 
-        run = True
-        while run:
-            # get balances for all assets & some account information
-            print("getting balances ...")
-
-            balances = {}
-
-            # get account balances
-            for account in client['user'].get_account_list():
-                if account['type'] == 'trade':
-                    # balances = client['user'].get_account(account['id'])
-                    balances[account['currency']] = float(account['available'])
-                    if balances[account['currency']] > 0:
-                        print (account['currency'], f"{balances[account['currency']]:8f}")
-
-            print("done.\n")
-
-            print("watching the markets ...")
-
-            # build tables using pandas and technical analysis
-            payload = {
-                'client': client['market'],
-            }
-
-            if coins:
-                payload["coins"] = coins
-            else:
-                coins = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
-
-            if quotes:
-                payload["quotes"] = quotes
-            else:
-                payload["quotes"] = ['USDT', 'USDC', 'BTC', 'ETH']
-
-            if interval:
-                payload["interval"] = interval
-            else:
-                payload["interval"] = '1hour', # default to one hour
-
-            if bars:
-                payload["bars"] = bars
-            else:
-                payload["bars"] = 24 # default to number of hours in one day
-
-            markets = compile(payload)
-
-            print("done.\n")
-
-            best = ('', 'buy', '0.00', '0.00')
-            worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
-
-            # for each table
-            for pair in markets.keys():
-                # print out markets to terminal if --lines or --verbose are turned on
-                if lines or verbose:
-                    payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
-                    monitor(payload) # default to 10 lines of data
-                
-                # analyze each table to determine action
-                # url = 'https://api.kreeper.trade/kreeper'
-                payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
-                # data = requests.get(url, data = payload)
-
-                data = analyze(payload)
-                
-                # check if it's the best buy out of all the positions being analyzed
-                if ('buy' in data["action"]):
-                    if (float(data["quantity"]) * float(data["price"]) > float(best["quantity"]) * float(data["price"])):
-                        best = data
-                elif ('sell' in data["action"]):
-                    if (float(data["quantity"]) * float(data["price"]) < float(worst["quantity"]) * float(data["price"])):
-                        worst = data
+        # run = True
+        # while run:
             
-            if best["pair"] != '':
-                return jsonify(place_limit_order(client['trade'], *best))
-            if worst["pair"] != '':
-                return jsonify(place_limit_order(client['trade'], *worst))
+        # get balances for all assets & some account information
+        print("getting balances ...")
+
+        balances = {}
+
+        # get account balances
+        for account in client['user'].get_account_list():
+            if account['type'] == 'trade':
+                # balances = client['user'].get_account(account['id'])
+                balances[account['currency']] = float(account['available'])
+                if balances[account['currency']] > 0:
+                    print (account['currency'], f"{balances[account['currency']]:8f}")
+
+        print("done.\n")
+
+        print("watching the markets ...")
+
+        # build tables using pandas and technical analysis
+        payload = {
+            'client': client['market'],
+        }
+
+        if coins:
+            payload["coins"] = coins
+        else:
+            coins = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
+
+        if quotes:
+            payload["quotes"] = quotes
+        else:
+            payload["quotes"] = ['USDT', 'USDC', 'BTC', 'ETH']
+
+        if interval:
+            payload["interval"] = interval
+        else:
+            payload["interval"] = '1hour', # default to one hour
+
+        if bars:
+            payload["bars"] = bars
+        else:
+            payload["bars"] = 24 # default to number of hours in one day
+
+        markets = compile(payload)
+
+        print("done.\n")
+
+        best = ('', 'buy', '0.00', '0.00')
+        worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
+
+        # for each table
+        for pair in markets.keys():
+            # print out markets to terminal if --lines or --verbose are turned on
+            if lines or verbose:
+                payload = {'pair': pair, 'pair_df': markets[pair], 'lines': args.lines or 10, 'verbose': args.verbose or False}
+                monitor(payload) # default to 10 lines of data
             
-            # run every few seconds. (should we change this or make it adjustable or smth?)
-            # time.sleep(1)
+            # analyze each table to determine action
+            # url = 'https://api.kreeper.trade/kreeper'
+            payload = {'pair': pair, 'table': markets[pair], 'balances': balances}
+            # data = requests.get(url, data = payload)
+
+            data = analyze(payload)
+            
+            # check if it's the best buy out of all the positions being analyzed
+            if ('buy' in data["action"]):
+                if (float(data["quantity"]) * float(data["price"]) > float(best["quantity"]) * float(data["price"])):
+                    best = data
+            elif ('sell' in data["action"]):
+                if (float(data["quantity"]) * float(data["price"]) < float(worst["quantity"]) * float(data["price"])):
+                    worst = data
+        
+        if best["pair"] != '':
+            return jsonify(place_limit_order(client['trade'], *best))
+        if worst["pair"] != '':
+            return jsonify(place_limit_order(client['trade'], *worst))
+        
+        # run every few seconds. (should we change this or make it adjustable or smth?)
+        # time.sleep(1)
 
 
 @app.route('/')
