@@ -183,16 +183,16 @@ def run_kreeper ():
                 data = analyze(payload)
                 
                 # check if it's the best buy out of all the positions being analyzed
-                if ('buy' in data[1]):
-                    if (float(data[2]) > float(best[2])):
+                if ('buy' in data["action"]):
+                    if (float(data["quantity"]) > float(best["quantity"])):
                         best = data
-                elif ('sell' in data[1]):
-                    if (float(data[2]) < float(worst[2])):
+                elif ('sell' in data["action"]):
+                    if (float(data["quantity"]) < float(worst["quantity"])):
                         worst = data
             
-            if best[0] != '':
+            if best["pair"] != '':
                 return jsonify(place_limit_order(client['trade'], *best))
-            if worst[0] != '':
+            if worst["pair"] != '':
                 return jsonify(place_limit_order(client['trade'], *worst))
             
             # run every few seconds. (should we change this or make it adjustable or smth?)
