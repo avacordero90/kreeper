@@ -125,32 +125,32 @@ def run_kreeper ():
         if "coins" in args:
             coins = args["coins"]
         else:
-            coins = None
+            coins = False
 
         if "quotes" in args:
             quotes = args["quotes"]
         else:
-            quotes = None
+            quotes = False
 
         if "interval" in args:
             interval = args["interval"]
         else:
-            interval = None
+            interval = False
 
         if "bars" in args:
             bars = args["bars"]
         else:
-            bars = None
+            bars = False
 
         if "lines" in args:
             lines = args["lines"]
         else:
-            lines = None
+            lines = False
 
         if "verbose" in args:
             verbose = args["verbose"]
         else:
-            verbose = None
+            verbose = False
 
         # print(str(args))
 
