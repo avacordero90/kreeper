@@ -141,7 +141,7 @@ def compile(request):
     print(request)
     # get variables from request
     client, coins, quotes, interval, bars = request["client"], request["coins"], request["quotes"], request["interval"], request["bars"]
-    
+    print(coins)
     # build a list of tables (dataframes)
     tables = {}
 
