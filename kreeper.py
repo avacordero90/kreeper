@@ -120,7 +120,7 @@ def run_kreeper ():
         kucoin_passphrase = request.headers["kucoin-passphrase"]
 
         args = request.get_json()
-        
+        print(args)
 
         if "coins" in args:
             coins = args["coins"]
