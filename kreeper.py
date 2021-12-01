@@ -116,14 +116,15 @@ def run_kreeper ():
         # parse arguments
         # args = _parse_args()
         args = request.args
-        proxy_auth = request.headers["kucoin-key"], request.headers["kucoin-secret"], request.headers["kucoin-passphrase"]
+        kucoin_key = request.headers["kucoin-key"]
+        kucoin_secret = request.headers["kucoin-secret"]
+        kucoin_passphrase = request.headers["kucoin-passphrase"]
 
 
-        print(str(args))
-        print(str(proxy_auth))
+        # print(str(args))
 
         # connect client to API
-        client = _connect(proxy_auth)
+        client = _connect(kucoin_key, kucoin_secret, kucoin_passphrase)
 
         run = True
         while run:
