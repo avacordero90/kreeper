@@ -121,21 +121,36 @@ def run_kreeper ():
 
         args = request.get_json()
         
-        coins, quotes, interval, bars, lines, verbose = None * 6
 
         if "coins" in args:
             coins = args["coins"]
+        else:
+            coins = None
+
         if "quotes" in args:
             quotes = args["quotes"]
+        else:
+            quotes = None
+
         if "interval" in args:
             interval = args["interval"]
+        else:
+            interval = None
+
         if "bars" in args:
             bars = args["bars"]
+        else:
+            bars = None
 
         if "lines" in args:
             lines = args["lines"]
+        else:
+            lines = None
+
         if "verbose" in args:
             verbose = args["verbose"]
+        else:
+            verbose = None
 
         # print(str(args))
 
