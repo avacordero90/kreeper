@@ -212,8 +212,8 @@ def run_kreeper ():
 
         print("done.\n")
 
-        best = ('', 'buy', '0.00', '0.00')
-        worst = ('', 'sell', str(float(math.inf)), str(float(math.inf)))
+        best = {"pair": '', "action": 'buy', "quantity": '0.00', "price": '0.00'}
+        worst = {"pair": '', "action": 'sell', "quantity": str(float(math.inf)), "price": str(float(math.inf))}
 
         # for each table
         for pair in markets.keys():
