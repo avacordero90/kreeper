@@ -129,7 +129,7 @@ def analyze(request):
         
         return response
 
-    response = {'pair': pair, 'action': action, 'quantity': str(round(quantity, 5)), 'price': str(price)}
+    response = {'pair': pair, 'action': action, 'quantity': str(round(quantity, 2)), 'price': str(price)}
     
     return response
 
