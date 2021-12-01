@@ -148,6 +148,8 @@ def compile(request):
     # build a list of all symbols on exchange
     symbols = [symbol['symbol'] for symbol in client.get_symbol_list()]
 
+    print(symbols)
+
     for coin in coins:
         for quote in quotes:
             if (coin + "-" + quote) in symbols:
