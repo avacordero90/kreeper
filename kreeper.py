@@ -4,7 +4,7 @@
 #   v1.0.7
 #   by Luna Cordero
 #   written 6/20/2021
-#   updated 11/8/2021
+#   updated 11/28/2021
 
 # sources:
 #   https://github.com/binance-us/binance-official-api-docs
@@ -124,7 +124,7 @@ def run_kreeper ():
 
         if "coins" in args and type(args["coins"]) is str:
             coins = [args["coins"]]
-        if "coins" in args and type(args["coins"]) is list:
+        elif "coins" in args and type(args["coins"]) is list:
             coins = args["coins"]
         else:
             coins = None
@@ -133,7 +133,7 @@ def run_kreeper ():
 
         if "quotes" in args and type(args["quotes"]) is str:
             quotes = [args["quotes"]]
-        if "quotes" in args and type(args["quotes"]) is list:
+        elif "quotes" in args and type(args["quotes"]) is list:
             quotes = args["quotes"]
         else:
             quotes = None
@@ -191,7 +191,7 @@ def run_kreeper ():
         if coins:
             payload["coins"] = coins
         else:
-            coins = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
+            payload["coins"] = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
 
         if quotes:
             payload["quotes"] = quotes
