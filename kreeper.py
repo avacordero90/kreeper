@@ -239,8 +239,11 @@ def run_kreeper ():
         
         if best["pair"] != '':
             return jsonify(place_limit_order(client['trade'], best))
+
         if worst["pair"] != '':
             return jsonify(place_limit_order(client['trade'], worst))
+
+        return jsonify({"response": "No trade placed."})
         
         # run every few seconds. (should we change this or make it adjustable or smth?)
         # time.sleep(1)
