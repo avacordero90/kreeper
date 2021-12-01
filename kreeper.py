@@ -185,10 +185,10 @@ def run_kreeper ():
                 
                 # check if it's the best buy out of all the positions being analyzed
                 if ('buy' in data["action"]):
-                    if (float(data["quantity"] * data["price"]) > float(best["quantity"] * data["price"])):
+                    if (float(data["quantity"]) * float(data["price"]) > float(best["quantity"]) * float(data["price"])):
                         best = data
                 elif ('sell' in data["action"]):
-                    if (float(data["quantity"] * data["price"]) < float(worst["quantity"] * data["price"])):
+                    if (float(data["quantity"]) * float(data["price"]) < float(worst["quantity"]) * float(data["price"])):
                         worst = data
             
             if best["pair"] != '':
