@@ -125,32 +125,32 @@ def run_kreeper ():
         if "coins" in args:
             coins = args["coins"]
         else:
-            coins = False
+            coins = None
 
         if "quotes" in args:
             quotes = args["quotes"]
         else:
-            quotes = False
+            quotes = None
 
         if "interval" in args:
             interval = args["interval"]
         else:
-            interval = False
+            interval = None
 
         if "bars" in args:
             bars = args["bars"]
         else:
-            bars = False
+            bars = None
 
         if "lines" in args:
             lines = args["lines"]
         else:
-            lines = False
+            lines = None
 
         if "verbose" in args:
             verbose = args["verbose"]
         else:
-            verbose = False
+            verbose = None
 
         # print(str(args))
 
@@ -179,12 +179,27 @@ def run_kreeper ():
             # build tables using pandas and technical analysis
             payload = {
                 'client': client['market'],
-                # 'coins': args["coins"] or [key for key in balances.keys() if key != 'USD'], # default to all available coins
-                'coins': coins or ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB'],
-                'quotes': quotes or ['USDT', 'USDC', 'BTC', 'ETH'],
-                'interval': interval or '1hour', # default to one hour
-                'bars': bars or 24, # default to number of hours in one day
             }
+
+            if coins:
+                payload["coins"] = coins
+            else:
+                coins = ['BTC', 'ETH', 'ADA', 'DOGE', 'SHIB']
+
+            if quotes:
+                payload["quotes"] = quotes
+            else:
+                payload["quotes"] = ['USDT', 'USDC', 'BTC', 'ETH']
+
+            if interval:
+                payload["interval"] = interval
+            else:
+                payload["interval"] = '1hour', # default to one hour
+
+            if bars:
+                payload["bars"] = bars
+            else:
+                payload["bars"] = 24, # default to number of hours in one day
 
             markets = compile(payload)
 
