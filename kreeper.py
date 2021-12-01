@@ -123,14 +123,14 @@ def run_kreeper ():
         # print(args)
 
         if "coins" in args:
-            coins = args["coins"]
+            coins = list(args["coins"])
         else:
             coins = None
         
         # print(coins)
 
         if "quotes" in args:
-            quotes = args["quotes"]
+            quotes = list(args["quotes"])
         else:
             quotes = None
 
