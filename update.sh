@@ -1,1 +1,1 @@
-git stash && git pull && git checkout luna && source ./setup/config.sh
+git stash && git pull  && source ./setup/config.sh
