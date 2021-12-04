@@ -44,8 +44,8 @@ if [[ $answer == 'y'* ]]; then
     chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
     source ~/.profile
 
-    # pipenv shell source ~/kreeper/setup/config.sh
-    source ~/kreeper/setup/config.sh
+    # pipenv shell source ~/kreeper/setup/config-kreeper.sh
+    source ~/kreeper/setup/config-kreeper.sh
 
     # if [[ $1 ]]; then
         # pipenv --version
