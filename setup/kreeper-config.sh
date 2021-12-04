@@ -18,7 +18,7 @@ echo "==========================================================================
 echo "continue? yes/no"
 read answer
 
-if [[ $answer == 'y'* ]]; then
+# if [[ $answer == 'y'* ]]; then
     rm -f /usr/bin/kreeper.py
     ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
     chmod u+x /usr/bin/kreeper.py
@@ -41,6 +41,6 @@ if [[ $answer == 'y'* ]]; then
 
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'kreeper.py'" 
-else
-    echo -e "configuration aborted!\n"
-fi
+# else
+#     echo -e "configuration aborted!\n"
+# fi
