@@ -15,8 +15,8 @@ echo "this configurator is for internal use only."
 echo "to install all dependencies and then automatically run this script within a virtual environment, run ./install.sh"
 echo "==========================================================================================================================="
 
-echo "continue? yes/no"
-read answer
+# echo "continue? yes/no"
+# read answer
 
 # if [[ $answer == 'y'* ]]; then
     rm -f /usr/bin/kreeper.py
