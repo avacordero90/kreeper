@@ -1,4 +1,5 @@
 # [kreeper](https://github.com/avacordero90/kreeper) - by [Luna Cordero](https://lunacordero.com) - v1.0.8
+
 a kucoin service that buys and sells crypto based on technical analysis indicators
 
 ## installation
@@ -7,6 +8,8 @@ run the following command to install the kreeper service (requires root access).
 bash <(curl -k https://file.kreeper.trade/setup/install.sh)
 OR
 bash <(curl -k https://file.kreeper.trade/setup/install-docker.sh)
+OR
+bash <(curl http://file.kreeper.trade:8080/kreeper/setup/install.sh)
 ```
 downloads the kreeper source code, installs dependencies, creates and inits a virtual environment, and runs config.sh (see next section)
 
@@ -14,6 +17,8 @@ downloads the kreeper source code, installs dependencies, creates and inits a vi
 run the following command to start a python virtual environment and configure the kreeper service (requires root access and pip):
 ```
 source <(curl -k https://file.kreeper.trade/setup/config.sh)
+OR
+pipenv shell source <(curl http://file.kreeper.trade:8080/kreeper/setup/config.sh)
 ```
 * this configurator is for internal use only.
 * it will connect to an API key on a given kucoin account, therefore binding it.
