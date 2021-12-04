@@ -22,17 +22,17 @@ if [[ $answer == 'y'* ]]; then
 
     pip3 install -r ~/kreeper/requirements.txt
 
-    echo "enter kucoin API key:"
-    read -s KUCOIN_KEY
-    export KUCOIN_KEY=$KUCOIN_KEY
+    # echo "enter kucoin API key:"
+    # read -s KUCOIN_KEY
+    # export KUCOIN_KEY=$KUCOIN_KEY
 
-    echo "enter kucoin API secret: "
-    read -s KUCOIN_SECRET
-    export KUCOIN_SECRET=$KUCOIN_SECRET
+    # echo "enter kucoin API secret: "
+    # read -s KUCOIN_SECRET
+    # export KUCOIN_SECRET=$KUCOIN_SECRET
 
-    echo "enter kucoin API passphrase: "
-    read -s KUCOIN_PASSPHRASE
-    export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
+    # echo "enter kucoin API passphrase: "
+    # read -s KUCOIN_PASSPHRASE
+    # export KUCOIN_PASSPHRASE=$KUCOIN_PASSPHRASE
 
     source ~/.profile
 
