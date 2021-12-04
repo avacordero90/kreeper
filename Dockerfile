@@ -6,6 +6,6 @@ WORKDIR /root/kreeper
 CMD (git checkout main && \
     git stash && \
     git pull && \
-    source setup/kreeper-config.sh && \
+    setup/kreeper-config.sh && \
     kreeper.py) > /dev/null || bash
 
