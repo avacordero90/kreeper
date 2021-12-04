@@ -43,6 +43,10 @@ def analyze(request):
     quantity = 0
     price = 0
 
+    # THIS IS WHERE THE BLACK BOX FUNCTION GOES
+
+    # rsi, stoch rsi, macd
+
     if (current_rsi < 30 or current_histogram < 0) and coin in balances:
         coin_balance = balances[coin]
         if quote in balances:
