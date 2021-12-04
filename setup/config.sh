@@ -2,13 +2,16 @@
 
 echo "initializing kreeper server configuration ..."
 
+
+if [ ! "$BASH_VERSION" ] ; then
+    echo "Please do not use sh to run this script ($0), just execute it directly" 1>&2
+    exit 1
+fi
+
 sleep 1
 
 echo "==========================================================================================================================="
 echo "this configurator is for internal use only."
-echo "it will connect to an API key on a given kucoin account, therefore binding it."
-echo "this means calling this kreeper instance may trigger crypto trades with your account. USE WITH CAUTION."
-echo "only use this configurator within a python virtual environment."
 echo "to install all dependencies and then automatically run this script within a virtual environment, run ./install.sh"
 echo "==========================================================================================================================="
 
