@@ -15,10 +15,10 @@ echo "this configurator is for internal use only."
 echo "to install all dependencies and then automatically run this script within a virtual environment, run ./install.sh"
 echo "==========================================================================================================================="
 
-echo "continue? yes/no"
-read answer
+# echo "continue? yes/no"
+# read answer
 
-if [[ $answer == 'y'* ]]; then
+# if [[ $answer == 'y'* ]]; then
     rm -f /usr/bin/kreeper.py
     ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
     chmod u+x /usr/bin/kreeper.py
@@ -41,6 +41,6 @@ if [[ $answer == 'y'* ]]; then
 
     echo -e "configuration complete!\n"
     echo "you can now run the kreeper service by typing 'kreeper.py'" 
-else
-    echo -e "configuration aborted!\n"
-fi
+# else
+#     echo -e "configuration aborted!\n"
+# fi
