@@ -14,15 +14,15 @@ echo "continue? yes/no"
 read answer
 
 if [[ $answer == 'y'* ]]; then
-    cd ~
-    rm -rf ~/kreeper/ /kreeper/
+#     cd ~
+#     rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
         apt install -y curl git
 
-    git clone git@github.com:avacordero90/kreeper.git
+#     git clone git@github.com:avacordero90/kreeper.git
 
-    # cd ~/kreeper
+#     cd ~/kreeper
 
     echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 
