@@ -25,4 +25,7 @@ chmod u+x /usr/bin/kreeper.py
 pip3 install -r ~/kreeper/requirements.txt
 
 echo "configuration complete!"
-echo "you can now run the kreeper service by typing 'kreeper.py'" 
+echo "you can now run the kreeper service by typing 'kreeper.py'"
+echo "starting kreeper.py now..."
+sleep 1
+ 
