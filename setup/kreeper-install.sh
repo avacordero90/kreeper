@@ -24,12 +24,14 @@ if [[ $answer == 'y'* ]]; then
     ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
     chmod u+x /usr/bin/kreeper.py
 
-    pip3 install -r ~/kreeper/requirements.txt
+    # pip3 install -r ~/kreeper/requirements.txt
 
     echo "configuration complete!"
     echo "you can now run the kreeper service by typing 'kreeper.py'"
     echo "starting kreeper.py now..."
     sleep 1
+
+    kreeper.py
 
 else
     echo -e "installation aborted!\n"
