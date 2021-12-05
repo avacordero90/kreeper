@@ -239,11 +239,11 @@ def run_kreeper ():
         
         if best["pair"] != '':
             # return jsonify(place_limit_order(client['trade'], best))
-            return place_limit_order(client['trade'], best)
+            return jsonify(place_limit_order(client['trade'], best))
 
         if worst["pair"] != '':
             # return jsonify(place_limit_order(client['trade'], worst))
-            return place_limit_order(client['trade'], worst)
+            return jsonify(place_limit_order(client['trade'], worst))
 
         return jsonify({"orderId": 0}, {"data": data})
         
