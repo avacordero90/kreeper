@@ -258,7 +258,7 @@ def index():
 
 if __name__ == '__main__':  
     context = ssl.SSLContext(ssl.PROTOCOL_TLS)
-    context.load_cert_chain('ssl/cert.pem', keyfile='ssl/key.pem')
+    context.load_cert_chain('ssl/cert.pem', keyfile='ssl/key.pem', password=(os.environ.get("SSL_PASSPHRASE")))
     # context.use_privatekey_file('ssl/privkey.pem')
     # context.use_certificate_file('ssl/62ba54b69c53d5bf.pem')
     # context = ('ssl/62ba54b69c53d5bf.pem', 'ssl/privkey.pem')
