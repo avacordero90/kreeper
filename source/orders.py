@@ -23,4 +23,4 @@ def place_limit_order(client, order_dict):
         return { order.get_data() }
     except Exception as e:
         print("failed to make transaction: ", str(e))
-        return e
+        return { "error": str(e) }
