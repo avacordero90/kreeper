@@ -14,52 +14,22 @@ echo "continue? yes/no"
 read answer
 
 if [[ $answer == 'y'* ]]; then
-    mv $(dirname "$0")/.. ~/kreeper && cd ~/kreeper
+    cp -r $(dirname "$0")/.. ~/kreeper && cd ~/kreeper
 #     rm -rf ~/kreeper/ /kreeper/
-
-    
 
     apt update && \
         apt install -y curl git python3 python3-pip
 
-#     git clone git@github.com:avacordero90/kreeper.git
+    rm -f /usr/bin/kreeper.py
+    ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
+    chmod u+x /usr/bin/kreeper.py
 
-#     cd ~/kreeper
+    pip3 install -r ~/kreeper/requirements.txt
 
-    echo -e "\n" | bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.profile
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-    brew install python@3.10
-    
-    export PATH=$PATH:/home/linuxbrew/.linuxbrew/opt/python@3.10/bin
-    source ~/.profile
-
-    # pip3 install pipenv
-
-    # rm -f kreeper/Pipfile
-
-    # pipenv clean
-
-    ln -s ~/kreeper/kreeper.py /home/linuxbrew/.linuxbrew/bin/kreeper.py --force
-    chmod u+x /home/linuxbrew/.linuxbrew/bin/kreeper.py
-    source ~/.profile
-
-    # pipenv shell source ~/kreeper/setup/config-kreeper.sh
-    source ~/kreeper/setup/kreeper-config.sh
-
-    # if [[ $1 ]]; then
-        # pipenv --version
-
-        if [[ $1 ]]; then
-            echo -e "installation complete!\n"
-        else
-            echo -e "installation failed: unknown error.\n"
-        fi
-    # else
-    #     echo -e "installation failed!\n"
-    # fi
+    echo "configuration complete!"
+    echo "you can now run the kreeper service by typing 'kreeper.py'"
+    echo "starting kreeper.py now..."
+    sleep 1
 
 else
     echo -e "installation aborted!\n"
