@@ -14,7 +14,7 @@ echo "continue? yes/no"
 read answer
 
 if [[ $answer == 'y'* ]]; then
-    mv $(dirname "$0") ~/kreeper && cd ~/kreeper
+    mv $(dirname "$0")/.. ~/kreeper && cd ~/kreeper
 #     rm -rf ~/kreeper/ /kreeper/
 
     apt update && \
