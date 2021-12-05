@@ -6,4 +6,4 @@ cd ~/kreeper
 # openssl req -x509 -newkey rsa:4096 -keyout ssl/key.pem -out ssl/cert.pem -sha256 -days 365 -subj "/C=US/ST=California/L=San Diego/O=Kreeper Labs/OU=Engineering/CN=api.kreeper.trade"
 
 
-sudo docker build -t kreeper . && sudo docker run -p 0.0.0.0:443:443/tcp -it kreeper
+sudo docker build -t kreeper . && sudo docker run -p 0.0.0.0:443:443/tcp -it kreeper "bash"
