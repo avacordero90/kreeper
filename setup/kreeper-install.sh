@@ -15,17 +15,11 @@ cp -r $(dirname "$0")/.. ~/kreeper && cd ~/kreeper
 apt update && \
     apt install -y python3 python3-pip
 
-rm -f /usr/bin/kreeper.py
-ln -s ~/kreeper/kreeper.py /usr/bin/kreeper.py --force
-chmod u+x /usr/bin/kreeper.py
-
-pip install -r ~/kreeper/requirements.txt
+source ~/kreeper/setup/kreeper-config.sh
 
 echo "configuration complete!"
 echo "you can now run the kreeper service by typing 'kreeper.py'"
 echo "starting kreeper.py now..."
 sleep 1
-
+ 
 kreeper.py
-
-
