@@ -24,9 +24,5 @@ chmod u+x /usr/bin/kreeper.py
 
 pip3 install -r ~/kreeper/requirements.txt
 
-if [[ $1 ]]; then
-    echo "configuration complete!"
-    echo "you can now run the kreeper service by typing 'kreeper.py'" 
-else
-    echo "installation failed. please check manually and try again."
-fi
+echo "configuration complete!"
+echo "you can now run the kreeper service by typing 'kreeper.py'" 
