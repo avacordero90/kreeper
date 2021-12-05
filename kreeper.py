@@ -245,7 +245,7 @@ def run_kreeper ():
             # return jsonify(place_limit_order(client['trade'], worst))
             return jsonify(place_limit_order(client['trade'], worst))
 
-        return jsonify({"orderId": 0}, {"data": data})
+        return jsonify({"orderId": 0, "data": data})
         
         # run every few seconds. (should we change this or make it adjustable or smth?)
         # time.sleep(1)
