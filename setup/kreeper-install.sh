@@ -17,8 +17,10 @@ if [[ $answer == 'y'* ]]; then
     mv $(dirname "$0")/.. ~/kreeper && cd ~/kreeper
 #     rm -rf ~/kreeper/ /kreeper/
 
+    
+
     apt update && \
-        apt install -y curl git
+        apt install -y curl git python3 python3-pip
 
 #     git clone git@github.com:avacordero90/kreeper.git
 
@@ -36,7 +38,7 @@ if [[ $answer == 'y'* ]]; then
 
     # pip3 install pipenv
 
-    # rm -f ~/kreeper/Pipfile
+    # rm -f kreeper/Pipfile
 
     # pipenv clean
 
