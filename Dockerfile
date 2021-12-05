@@ -7,5 +7,5 @@ CMD git checkout main && \
     git stash && \
     git pull && \
     setup/kreeper-config.sh && \
-    kreeper.py &
+    kreeper.py
 
