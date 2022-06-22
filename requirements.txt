@@ -8,7 +8,7 @@ Jinja2==3.0.3
 KuCoin==0.1
 kucoin-python==1.0.10
 MarkupSafe==2.0.1
-numpy==1.21.4
+numpy==1.22.0
 pandas==1.3.4
 pandas-ta==0.3.14b0
 python-dateutil==2.8.2
